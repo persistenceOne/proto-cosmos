@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package figment_tendermint.types;
 
-import "gogoproto/gogo.proto";
+import "gogo.proto";
 import "google/protobuf/timestamp.proto";
 
 // used in Vote
@@ -17,6 +17,17 @@ enum SignedMsgType {
 
   // Proposals
   SIGNED_MSG_TYPE_PROPOSAL = 32 [(gogoproto.enumvalue_customname) = "ProposalType"];
+}
+
+// BlockIdFlag indicates which BlockID the signature is for
+enum BlockIDFlag {
+  option (gogoproto.goproto_enum_stringer) = true;
+  option (gogoproto.goproto_enum_prefix)   = false;
+
+  BLOCK_ID_FLAG_UNKNOWN = 0 [(gogoproto.enumvalue_customname) = "BlockIDFlagUnknown"];
+  BLOCK_ID_FLAG_ABSENT  = 1 [(gogoproto.enumvalue_customname) = "BlockIDFlagAbsent"];
+  BLOCK_ID_FLAG_COMMIT  = 2 [(gogoproto.enumvalue_customname) = "BlockIDFlagCommit"];
+  BLOCK_ID_FLAG_NIL     = 3 [(gogoproto.enumvalue_customname) = "BlockIDFlagNil"];
 }
 
 // EventDataNewBlock
@@ -63,6 +74,14 @@ message Commit {
   repeated CommitSig signatures = 4 [(gogoproto.nullable) = false];
 }
 
+message CommitSig {
+  BlockIDFlag               block_id_flag     = 1;
+  bytes                     validator_address = 2;
+  google.protobuf.Timestamp timestamp         = 3
+      [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+  bytes signature = 4;
+}
+
 // EventDataNewBlockHeader
 message EventDataNewBlockHeader {
   Header header = 1;
@@ -102,6 +121,11 @@ message Consensus {
 message BlockID {
   bytes hash = 1;
   PartSetHeader part_set_header = 2 [(gogoproto.nullable) = false];
+}
+
+message PartSetHeader {
+  uint32 total = 1;
+  bytes  hash  = 2;
 }
 
 message Data {
@@ -151,6 +175,12 @@ message LightBlock {
   ValidatorSet validator_set = 2;
 }
 
+message ValidatorSet {
+  repeated Validator validators         = 1;
+  Validator          proposer           = 2;
+  int64              total_voting_power = 3;
+}
+
 message SignedHeader {
   Header header = 1;
   Commit commit = 2;
@@ -181,13 +211,13 @@ message PublicKey {
 message TxResult {
   int64 height = 1;
   int32 index = 2;
-  Tx tx = 3;
+  bytes tx = 3;
   ResponseDeliverTx result = 4;
 }
 
 message ResponseDeliverTx {
   int32 code = 1;
-  byte data = 2;
+  bytes data = 2;
   string log = 3;
   string info = 4;
   int64 gas_wanted = 5;
