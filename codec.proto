@@ -1,0 +1,261 @@
+syntax = "proto3";
+
+package figment_tendermint.types;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+
+// used in Vote
+enum SignedMsgType {
+  option (gogoproto.goproto_enum_stringer) = true;
+  option (gogoproto.goproto_enum_prefix)   = false;
+
+  SIGNED_MSG_TYPE_UNKNOWN = 0 [(gogoproto.enumvalue_customname) = "UnknownType"];
+  // Votes
+  SIGNED_MSG_TYPE_PREVOTE   = 1 [(gogoproto.enumvalue_customname) = "PrevoteType"];
+  SIGNED_MSG_TYPE_PRECOMMIT = 2 [(gogoproto.enumvalue_customname) = "PrecommitType"];
+
+  // Proposals
+  SIGNED_MSG_TYPE_PROPOSAL = 32 [(gogoproto.enumvalue_customname) = "ProposalType"];
+}
+
+// EventDataNewBlock
+message EventDataNewBlock {
+  Block block = 1;
+  BlockID block_id = 2;
+
+  ResponseBeginBlock result_begin_block = 3;
+  ResponseEndBlock result_end_block = 4;
+}
+
+message ResponseBeginBlock {
+  repeated Event events = 1;
+}
+
+message ResponseEndBlock {
+  repeated Validator validator_updates = 1;
+  ConsensusParams consensus_param_updates = 2;
+  repeated Event events = 3;
+}
+
+message ConsensusParams {
+  Block block = 1;
+  Evidence evidence = 2;
+  Validator validator = 3;
+  Version version = 4;
+}
+
+message Version {
+  int64 app_version = 1;
+}
+
+message Block {
+  Header header = 1 [(gogoproto.nullable) = false];
+  Data data = 2 [(gogoproto.nullable) = false];
+  EvidenceList evidence = 3 [(gogoproto.nullable) = false];
+  Commit last_commit = 4;
+}
+
+message Commit {
+  int64 height = 1;
+  int32 round = 2;
+  BlockID block_id = 3 [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
+  repeated CommitSig signatures = 4 [(gogoproto.nullable) = false];
+}
+
+// EventDataNewBlockHeader
+message EventDataNewBlockHeader {
+  Header header = 1;
+  int64 num_txs = 2;
+  ResponseBeginBlock result_begin_block = 3;
+  ResponseEndBlock result_end_block = 4;
+}
+
+message Header {
+  Consensus version  = 1 [(gogoproto.nullable) = false];
+  string chain_id = 2 [(gogoproto.customname) = "ChainID"];
+  int64 height   = 3;
+  google.protobuf.Timestamp time = 4 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+
+  BlockID last_block_id = 5 [(gogoproto.nullable) = false];
+
+  bytes last_commit_hash = 6;
+  bytes data_hash = 7;
+
+  bytes validators_hash = 8;
+  bytes next_validators_hash = 9;
+  bytes consensus_hash = 10;
+  bytes app_hash = 11;
+  bytes last_results_hash = 12;
+
+  bytes evidence_hash = 13;
+  bytes proposer_address = 14;
+}
+
+message Consensus {
+  option (gogoproto.equal) = true;
+
+  uint64 block = 1;
+  uint64 app = 2;
+}
+
+message BlockID {
+  bytes hash = 1;
+  PartSetHeader part_set_header = 2 [(gogoproto.nullable) = false];
+}
+
+message Data {
+  repeated bytes txs = 1;
+}
+
+// EventDataNewEvidence
+message Evidence {
+  oneof sum {
+    DuplicateVoteEvidence duplicate_vote_evidence = 1;
+    LightClientAttackEvidence light_client_attack_evidence = 2;
+  }
+}
+
+message DuplicateVoteEvidence {
+  Vote vote_a = 1;
+  Vote vote_b = 2;
+  int64 total_voting_power = 3;
+  int64 validator_power = 4;
+  google.protobuf.Timestamp timestamp = 5 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+}
+
+// EventDataVote
+message Vote {
+  SignedMsgType type = 1;
+  int64 height = 2;
+  int32 round = 3;
+  BlockID block_id = 4
+      [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
+  google.protobuf.Timestamp timestamp = 5
+      [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+  bytes validator_address = 6;
+  int32 validator_index = 7;
+  bytes signature = 8;
+}
+
+message LightClientAttackEvidence {
+  LightBlock conflicting_block = 1;
+  int64 common_height = 2;
+  repeated Validator byzantine_validators = 3;
+  int64 total_voting_power = 4;
+  google.protobuf.Timestamp timestamp = 5 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+}
+
+message LightBlock {
+  SignedHeader signed_header = 1;
+  ValidatorSet validator_set = 2;
+}
+
+message SignedHeader {
+  Header header = 1;
+  Commit commit = 2;
+}
+
+message EvidenceList {
+  repeated Evidence evidence = 1 [(gogoproto.nullable) = false];
+}
+
+message Validator {
+  bytes address = 1;
+  PublicKey pub_key = 2 [(gogoproto.nullable) = false];
+  int64 voting_power = 3;
+  int64 proposer_priority = 4;
+}
+
+message PublicKey {
+  option (gogoproto.compare) = true;
+  option (gogoproto.equal) = true;
+
+  oneof sum {
+    bytes ed25519 = 1;
+    bytes secp256k1 = 2;
+    bytes sr25519 = 3;
+  }
+}
+
+message TxResult {
+  int64 height = 1;
+  int32 index = 2;
+  Tx tx = 3;
+  ResponseDeliverTx result = 4;
+}
+
+message ResponseDeliverTx {
+  int32 code = 1;
+  byte data = 2;
+  string log = 3;
+  string info = 4;
+  int64 gas_wanted = 5;
+  int64 gas_used = 6;
+  Event events = 7;
+  string codespace = 8;
+}
+
+message Event {
+  string type = 1;
+  EventAttribute attributes = 2;
+}
+
+message EventAttribute {
+  string key = 1;
+  string value = 2;
+  bool index = 3;
+}
+
+// EventDataRoundState
+message EventDataRoundState {
+  int64 height = 1;
+  int32 round = 2;
+  string step = 3;
+}
+
+// EventDataNewRound
+message EventDataNewRound {
+  int64 height = 1;
+  int32 round = 2;
+  string step = 3;
+  ValidatorInfo proposer = 4;
+}
+
+message ValidatorInfo {
+  Address address = 1;
+  int32 index = 2;
+}
+
+// Unsure about this piece, needs confirming
+message Address {
+  bytes address = 1;
+}
+
+// EventDataCompleteProposal
+message EventDataCompleteProposal {
+  int64 height = 1;
+  int32 round = 2;
+  string step = 3;
+  BlockID block_id = 4;
+}
+
+// EventDataValidatorSetUpdates - this may not be accurate but I can't confirm
+// as the original struct was ValidatorUpdates []*Validator
+message EventDataValidatorSetUpdates {
+  repeated Validator validator_updates = 1;
+}
+
+// EventDataString is just a string and not a struct, unsure how we make a message for this one
+
+// EventDataBlockSyncStatus
+message EventDataBlockSyncStatus {
+  bool complete = 1;
+  int64 height = 2;
+}
+
+// EventDataStateSyncStatus
+message EventDataStateSyncStatus {
+  bool complete = 1;
+  int64 height = 2;
+}
