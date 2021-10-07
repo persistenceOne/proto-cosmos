@@ -33,7 +33,7 @@ enum BlockIDFlag {
 // EventDataNewBlock
 message EventDataNewBlock {
   Block block = 1;
-  BlockID block_id = 2;
+  BlockID block_id = 2; // not present in v0.34.13
 
   ResponseBeginBlock result_begin_block = 3;
   ResponseEndBlock result_end_block = 4;
@@ -216,13 +216,14 @@ message TxResult {
 }
 
 message ResponseDeliverTx {
-  int32 code = 1;
-  bytes data = 2;
+  uint32 code = 1;
+  bytes  data = 2;
   string log = 3;
   string info = 4;
-  int64 gas_wanted = 5;
-  int64 gas_used = 6;
-  Event events = 7;
+  int64 gas_wanted = 5 [json_name = "gas_wanted"];
+  int64 gas_used = 6 [json_name = "gas_used"];
+  repeated Event events = 7
+      [(gogoproto.nullable) = false, (gogoproto.jsontag) = "events,omitempty"];
   string codespace = 8;
 }
 
