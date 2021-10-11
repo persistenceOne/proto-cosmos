@@ -30,7 +30,7 @@ enum BlockIDFlag {
   BLOCK_ID_FLAG_NIL     = 3 [(gogoproto.enumvalue_customname) = "BlockIDFlagNil"];
 }
 
-message StreamPiece {
+message EventList {
   EventDataNewBlock eventdatanewblock = 1;
   EventDataNewBlockHeader eventdatanewblockheader = 2;
   EventDataNewEvidence eventdatanewevidence = 3;
@@ -73,7 +73,7 @@ message ConsensusParams {
 }
 
 message Version {
-  int64 app_version = 1;
+  uint64 app_version = 1;
 }
 
 message Block {
@@ -84,7 +84,7 @@ message Block {
 }
 
 message Commit {
-  int64 height = 1;
+  uint64 height = 1;
   int32 round = 2;
   BlockID block_id = 3 [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
   repeated CommitSig signatures = 4 [(gogoproto.nullable) = false];
@@ -109,7 +109,7 @@ message EventDataNewBlockHeader {
 message Header {
   Consensus version  = 1 [(gogoproto.nullable) = false];
   string chain_id = 2 [(gogoproto.customname) = "ChainID"];
-  int64 height   = 3;
+  uint64 height   = 3;
   google.protobuf.Timestamp time = 4 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
 
   BlockID last_block_id = 5 [(gogoproto.nullable) = false];
@@ -172,7 +172,7 @@ message EventDataTx {
 // EventDataVote
 message EventDataVote {
   SignedMsgType type = 1;
-  int64 height = 2;
+  uint64 height = 2;
   int32 round = 3;
   BlockID block_id = 4
       [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
@@ -230,7 +230,7 @@ message PublicKey {
 }
 
 message TxResult {
-  int64 height = 1;
+  uint64 height = 1;
   int32 index = 2;
   bytes tx = 3;
   ResponseDeliverTx result = 4;
@@ -261,14 +261,14 @@ message EventAttribute {
 
 // EventDataRoundState
 message EventDataRoundState {
-  int64 height = 1;
+  uint64 height = 1;
   int32 round = 2;
   string step = 3;
 }
 
 // EventDataNewRound
 message EventDataNewRound {
-  int64 height = 1;
+  uint64 height = 1;
   int32 round = 2;
   string step = 3;
   ValidatorInfo proposer = 4;
@@ -286,7 +286,7 @@ message Address {
 
 // EventDataCompleteProposal
 message EventDataCompleteProposal {
-  int64 height = 1;
+  uint64 height = 1;
   int32 round = 2;
   string step = 3;
   BlockID block_id = 4;
@@ -306,11 +306,11 @@ message EventDataString {
 // EventDataBlockSyncStatus
 message EventDataBlockSyncStatus {
   bool complete = 1;
-  int64 height = 2;
+  uint64 height = 2;
 }
 
 // EventDataStateSyncStatus
 message EventDataStateSyncStatus {
   bool complete = 1;
-  int64 height = 2;
+  uint64 height = 2;
 }
