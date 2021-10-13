@@ -41,7 +41,7 @@ enum BlockIDFlag {
 message EventList {
   EventDataNewBlock newblock = 1;
   EventDataNewEvidence evidence = 2;
-  EventDataTx transaction = 3;
+  repeated EventDataTx transaction = 3;
   EventDataVote vote = 4;
   EventDataRoundState roundstate = 5;
   EventDataNewRound newround = 6;
