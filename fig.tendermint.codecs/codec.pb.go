@@ -137,7 +137,7 @@ type EventList struct {
 
 	Newblock            *EventDataNewBlock            `protobuf:"bytes,1,opt,name=newblock,proto3" json:"newblock,omitempty"`
 	Evidence            *EventDataNewEvidence         `protobuf:"bytes,2,opt,name=evidence,proto3" json:"evidence,omitempty"`
-	Transaction         *EventDataTx                  `protobuf:"bytes,3,opt,name=transaction,proto3" json:"transaction,omitempty"`
+	Transaction         []*EventDataTx                `protobuf:"bytes,3,rep,name=transaction,proto3" json:"transaction,omitempty"`
 	Vote                *EventDataVote                `protobuf:"bytes,4,opt,name=vote,proto3" json:"vote,omitempty"`
 	Roundstate          *EventDataRoundState          `protobuf:"bytes,5,opt,name=roundstate,proto3" json:"roundstate,omitempty"`
 	Newround            *EventDataNewRound            `protobuf:"bytes,6,opt,name=newround,proto3" json:"newround,omitempty"`
@@ -194,7 +194,7 @@ func (x *EventList) GetEvidence() *EventDataNewEvidence {
 	return nil
 }
 
-func (x *EventList) GetTransaction() *EventDataTx {
+func (x *EventList) GetTransaction() []*EventDataTx {
 	if x != nil {
 		return x.Transaction
 	}
@@ -264,7 +264,7 @@ type EventDataNewBlock struct {
 	unknownFields protoimpl.UnknownFields
 
 	Block            *Block              `protobuf:"bytes,1,opt,name=block,proto3" json:"block,omitempty"`
-	BlockId          *BlockID            `protobuf:"bytes,2,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"` // not present in v0.34.13
+	BlockId          *BlockID            `protobuf:"bytes,2,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"` // not present in v0.34.13 - hash256 32 bytes
 	ResultBeginBlock *ResponseBeginBlock `protobuf:"bytes,3,opt,name=result_begin_block,json=resultBeginBlock,proto3" json:"result_begin_block,omitempty"`
 	ResultEndBlock   *ResponseEndBlock   `protobuf:"bytes,4,opt,name=result_end_block,json=resultEndBlock,proto3" json:"result_end_block,omitempty"`
 }
@@ -633,10 +633,10 @@ type Commit struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Height     uint64       `protobuf:"varint,1,opt,name=height,proto3" json:"height,omitempty"`
-	Round      int32        `protobuf:"varint,2,opt,name=round,proto3" json:"round,omitempty"`
+	Height     uint64       `protobuf:"varint,1,opt,name=height,proto3" json:"height,omitempty"` // must be > 0
+	Round      int32        `protobuf:"varint,2,opt,name=round,proto3" json:"round,omitempty"`   // must be > 0
 	BlockId    *BlockID     `protobuf:"bytes,3,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
-	Signatures []*CommitSig `protobuf:"bytes,4,rep,name=signatures,proto3" json:"signatures,omitempty"`
+	Signatures []*CommitSig `protobuf:"bytes,4,rep,name=signatures,proto3" json:"signatures,omitempty"` // must be > 0
 }
 
 func (x *Commit) Reset() {
@@ -704,10 +704,11 @@ type CommitSig struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	BlockIdFlag      BlockIDFlag            `protobuf:"varint,1,opt,name=block_id_flag,json=blockIdFlag,proto3,enum=fig.tendermint.codec.v1.BlockIDFlag" json:"block_id_flag,omitempty"`
-	ValidatorAddress []byte                 `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
-	Timestamp        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	Signature        []byte                 `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"`
+	BlockIdFlag      BlockIDFlag `protobuf:"varint,1,opt,name=block_id_flag,json=blockIdFlag,proto3,enum=fig.tendermint.codec.v1.BlockIDFlag" json:"block_id_flag,omitempty"` // must match those in the enum above
+	ValidatorAddress []byte      `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`                              // hash 256 20 bytes - this is the first 20 characters of a 32-byte -
+	// key - SHA256(pubkey)[:20]
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Signature []byte                 `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"` // length should be > 0 and < 64
 }
 
 func (x *CommitSig) Reset() {
@@ -851,15 +852,15 @@ type Header struct {
 	Height             uint64                 `protobuf:"varint,3,opt,name=height,proto3" json:"height,omitempty"`
 	Time               *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=time,proto3" json:"time,omitempty"`
 	LastBlockId        *BlockID               `protobuf:"bytes,5,opt,name=last_block_id,json=lastBlockId,proto3" json:"last_block_id,omitempty"`
-	LastCommitHash     []byte                 `protobuf:"bytes,6,opt,name=last_commit_hash,json=lastCommitHash,proto3" json:"last_commit_hash,omitempty"`
-	DataHash           []byte                 `protobuf:"bytes,7,opt,name=data_hash,json=dataHash,proto3" json:"data_hash,omitempty"`
-	ValidatorsHash     []byte                 `protobuf:"bytes,8,opt,name=validators_hash,json=validatorsHash,proto3" json:"validators_hash,omitempty"`
-	NextValidatorsHash []byte                 `protobuf:"bytes,9,opt,name=next_validators_hash,json=nextValidatorsHash,proto3" json:"next_validators_hash,omitempty"`
-	ConsensusHash      []byte                 `protobuf:"bytes,10,opt,name=consensus_hash,json=consensusHash,proto3" json:"consensus_hash,omitempty"`
-	AppHash            []byte                 `protobuf:"bytes,11,opt,name=app_hash,json=appHash,proto3" json:"app_hash,omitempty"`
-	LastResultsHash    []byte                 `protobuf:"bytes,12,opt,name=last_results_hash,json=lastResultsHash,proto3" json:"last_results_hash,omitempty"`
-	EvidenceHash       []byte                 `protobuf:"bytes,13,opt,name=evidence_hash,json=evidenceHash,proto3" json:"evidence_hash,omitempty"`
-	ProposerAddress    []byte                 `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`
+	LastCommitHash     []byte                 `protobuf:"bytes,6,opt,name=last_commit_hash,json=lastCommitHash,proto3" json:"last_commit_hash,omitempty"`             // hash 256 32 bytes
+	DataHash           []byte                 `protobuf:"bytes,7,opt,name=data_hash,json=dataHash,proto3" json:"data_hash,omitempty"`                                 // hash 256 32 bytes
+	ValidatorsHash     []byte                 `protobuf:"bytes,8,opt,name=validators_hash,json=validatorsHash,proto3" json:"validators_hash,omitempty"`               // hash 256 32 bytes
+	NextValidatorsHash []byte                 `protobuf:"bytes,9,opt,name=next_validators_hash,json=nextValidatorsHash,proto3" json:"next_validators_hash,omitempty"` // hash 256 32 bytes
+	ConsensusHash      []byte                 `protobuf:"bytes,10,opt,name=consensus_hash,json=consensusHash,proto3" json:"consensus_hash,omitempty"`                 // hash 256 32 bytes
+	AppHash            []byte                 `protobuf:"bytes,11,opt,name=app_hash,json=appHash,proto3" json:"app_hash,omitempty"`                                   // determined by application, not a fixed length
+	LastResultsHash    []byte                 `protobuf:"bytes,12,opt,name=last_results_hash,json=lastResultsHash,proto3" json:"last_results_hash,omitempty"`         // hash 256 32 bytes - first block will be results of an empty hash
+	EvidenceHash       []byte                 `protobuf:"bytes,13,opt,name=evidence_hash,json=evidenceHash,proto3" json:"evidence_hash,omitempty"`                    // hash sha256 32 bytes
+	ProposerAddress    []byte                 `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`           // hash 256 20 bytes - this is the first 20 characters of a 32-byte
 }
 
 func (x *Header) Reset() {
@@ -1108,7 +1109,7 @@ type PartSetHeader struct {
 	unknownFields protoimpl.UnknownFields
 
 	Total uint32 `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Hash  []byte `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
+	Hash  []byte `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"` // hash 256 32 bytes
 }
 
 func (x *PartSetHeader) Reset() {
@@ -1162,7 +1163,7 @@ type Data struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Txs [][]byte `protobuf:"bytes,1,rep,name=txs,proto3" json:"txs,omitempty"`
+	Txs [][]byte `protobuf:"bytes,1,rep,name=txs,proto3" json:"txs,omitempty"` // No validation is done by tendermint on this,
 }
 
 func (x *Data) Reset() {
@@ -1418,14 +1419,14 @@ type EventDataVote struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type             SignedMsgType          `protobuf:"varint,1,opt,name=type,proto3,enum=fig.tendermint.codec.v1.SignedMsgType" json:"type,omitempty"`
-	Height           uint64                 `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`
-	Round            int32                  `protobuf:"varint,3,opt,name=round,proto3" json:"round,omitempty"`
+	Type             SignedMsgType          `protobuf:"varint,1,opt,name=type,proto3,enum=fig.tendermint.codec.v1.SignedMsgType" json:"type,omitempty"` // should be present in the enum at the top of this file
+	Height           uint64                 `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`                                        // must be > 0
+	Round            int32                  `protobuf:"varint,3,opt,name=round,proto3" json:"round,omitempty"`                                          // must be > 0
 	BlockId          *BlockID               `protobuf:"bytes,4,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
 	Timestamp        *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	ValidatorAddress []byte                 `protobuf:"bytes,6,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
+	ValidatorAddress []byte                 `protobuf:"bytes,6,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"` // hash with a length of 20
 	ValidatorIndex   int32                  `protobuf:"varint,7,opt,name=validator_index,json=validatorIndex,proto3" json:"validator_index,omitempty"`
-	Signature        []byte                 `protobuf:"bytes,8,opt,name=signature,proto3" json:"signature,omitempty"`
+	Signature        []byte                 `protobuf:"bytes,8,opt,name=signature,proto3" json:"signature,omitempty"` // hash length should be >0 and <64
 }
 
 func (x *EventDataVote) Reset() {
@@ -1600,8 +1601,8 @@ type LightBlock struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SignedHeader *SignedHeader `protobuf:"bytes,1,opt,name=signed_header,json=signedHeader,proto3" json:"signed_header,omitempty"`
-	ValidatorSet *ValidatorSet `protobuf:"bytes,2,opt,name=validator_set,json=validatorSet,proto3" json:"validator_set,omitempty"`
+	SignedHeader *SignedHeader `protobuf:"bytes,1,opt,name=signed_header,json=signedHeader,proto3" json:"signed_header,omitempty"` // cannot be nil
+	ValidatorSet *ValidatorSet `protobuf:"bytes,2,opt,name=validator_set,json=validatorSet,proto3" json:"validator_set,omitempty"` // cannot be nil
 }
 
 func (x *LightBlock) Reset() {
@@ -1655,8 +1656,8 @@ type ValidatorSet struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Validators       []*Validator `protobuf:"bytes,1,rep,name=validators,proto3" json:"validators,omitempty"`
-	Proposer         *Validator   `protobuf:"bytes,2,opt,name=proposer,proto3" json:"proposer,omitempty"`
+	Validators       []*Validator `protobuf:"bytes,1,rep,name=validators,proto3" json:"validators,omitempty"` // cannot be empty of nil
+	Proposer         *Validator   `protobuf:"bytes,2,opt,name=proposer,proto3" json:"proposer,omitempty"`     // cannot be nil
 	TotalVotingPower int64        `protobuf:"varint,3,opt,name=total_voting_power,json=totalVotingPower,proto3" json:"total_voting_power,omitempty"`
 }
 
@@ -1821,7 +1822,7 @@ type Validator struct {
 	unknownFields protoimpl.UnknownFields
 
 	Address          []byte     `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
-	PubKey           *PublicKey `protobuf:"bytes,2,opt,name=pub_key,json=pubKey,proto3" json:"pub_key,omitempty"`
+	PubKey           *PublicKey `protobuf:"bytes,2,opt,name=pub_key,json=pubKey,proto3" json:"pub_key,omitempty"` // must be >0
 	VotingPower      int64      `protobuf:"varint,3,opt,name=voting_power,json=votingPower,proto3" json:"voting_power,omitempty"`
 	ProposerPriority int64      `protobuf:"varint,4,opt,name=proposer_priority,json=proposerPriority,proto3" json:"proposer_priority,omitempty"`
 }
@@ -2811,7 +2812,7 @@ var file_codec_proto_rawDesc = []byte{
 	0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61, 0x4e,
 	0x65, 0x77, 0x45, 0x76, 0x69, 0x64, 0x65, 0x6e, 0x63, 0x65, 0x52, 0x08, 0x65, 0x76, 0x69, 0x64,
 	0x65, 0x6e, 0x63, 0x65, 0x12, 0x46, 0x0a, 0x0b, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74,
-	0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x66, 0x69, 0x67, 0x2e,
+	0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x66, 0x69, 0x67, 0x2e,
 	0x74, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63,
 	0x2e, 0x76, 0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61, 0x54, 0x78, 0x52,
 	0x0b, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3a, 0x0a, 0x04,
