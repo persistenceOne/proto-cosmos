@@ -1,7 +1,5 @@
 LDFLAGS      := -w -s
 MODULE       := github.com/figment-networks/tendermint-protobuf-def
-VERSION_FILE ?= ./VERSION
-
 
 # Git Status
 GIT_SHA ?= $(shell git rev-parse --short HEAD)
