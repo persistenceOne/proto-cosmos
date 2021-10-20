@@ -48,7 +48,7 @@ message EventList {
   EventDataNewRound newround = 6;
   EventDataCompleteProposal completeproposal = 7;
   EventDataValidatorSetUpdates validatorsetupdates = 8;
-  EventDataString string = 9;
+  EventDataString eventdatastring = 9;
   EventDataBlockSyncStatus blocksyncstatus = 10;
   EventDataStateSyncStatus statesyncstatus = 11;
 }
@@ -320,7 +320,7 @@ message EventDataValidatorSetUpdates {
 // EventDataString is just a string and not a struct, unsure how we make a
 // message for this one
 message EventDataString {
-  string EventDataString = 1;
+  string eventdatastring = 1;
 }
 
 // EventDataBlockSyncStatus
