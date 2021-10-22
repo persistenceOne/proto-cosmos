@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package fig.tendermint.codec.v1;
 
-option go_package = "fig.tendermint.codecs";
+option go_package = "github.com/figment-networks/tendermint-protobuf-def/codec";
 
 import "gogo.proto";
 import "google/protobuf/descriptor.proto";
