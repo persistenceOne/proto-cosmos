@@ -268,7 +268,7 @@ message ResponseDeliverTx {
 
 message Event {
   string eventtype = 1 [json_name = "type"];
-  EventAttribute attributes = 2;
+  repeated EventAttribute attributes = 2;
 }
 
 message EventAttribute {
