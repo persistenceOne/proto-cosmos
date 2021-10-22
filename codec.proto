@@ -41,16 +41,15 @@ enum BlockIDFlag {
 
 message EventList {
   EventDataNewBlock newblock = 1;
-  EventDataNewEvidence evidence = 2;
-  repeated EventDataTx transaction = 3;
-  EventDataVote vote = 4;
-  EventDataRoundState roundstate = 5;
-  EventDataNewRound newround = 6;
-  EventDataCompleteProposal completeproposal = 7;
-  EventDataValidatorSetUpdates validatorsetupdates = 8;
-  EventDataString eventdatastring = 9;
-  EventDataBlockSyncStatus blocksyncstatus = 10;
-  EventDataStateSyncStatus statesyncstatus = 11;
+  repeated EventDataTx transaction = 2;
+  EventDataVote vote = 3;
+  EventDataRoundState roundstate = 4;
+  EventDataNewRound newround = 5;
+  EventDataCompleteProposal completeproposal = 6;
+  EventDataValidatorSetUpdates validatorsetupdates = 7;
+  EventDataString eventdatastring = 8;
+  EventDataBlockSyncStatus blocksyncstatus = 9;
+  EventDataStateSyncStatus statesyncstatus = 10;
 }
 
 // EventDataNewBlock
@@ -73,7 +72,7 @@ message ResponseEndBlock {
 
 message ConsensusParams {
   Block block = 1;
-  EventDataNewEvidence evidence = 2;
+  Evidence evidence = 2;
   Validator validator = 3;
   Version version = 4;
 }
@@ -163,8 +162,7 @@ message Data {
                                         // on this, Matrix of bytes ([][]bytes)
 }
 
-// EventDataNewEvidence
-message EventDataNewEvidence {
+message Evidence {
   oneof sum {
     DuplicateVoteEvidence duplicate_vote_evidence = 1;
     LightClientAttackEvidence light_client_attack_evidence = 2;
@@ -229,7 +227,7 @@ message SignedHeader {
 }
 
 message EvidenceList {
-  repeated EventDataNewEvidence evidence = 1 [(gogoproto.nullable) = false];
+  repeated Evidence evidence = 1 [(gogoproto.nullable) = false];
 }
 
 message Validator {
