@@ -12,17 +12,12 @@ enum SignedMsgType {
   option (gogoproto.goproto_enum_stringer) = true;
   option (gogoproto.goproto_enum_prefix) = false;
 
-  SIGNED_MSG_TYPE_UNKNOWN = 0
-      [(gogoproto.enumvalue_customname) = "UnknownType"];
+  SIGNED_MSG_TYPE_UNKNOWN = 0 [(gogoproto.enumvalue_customname) = "UnknownType"];
   // Votes
-  SIGNED_MSG_TYPE_PREVOTE = 1
-      [(gogoproto.enumvalue_customname) = "PrevoteType"];
-  SIGNED_MSG_TYPE_PRECOMMIT = 2
-      [(gogoproto.enumvalue_customname) = "PrecommitType"];
-
+  SIGNED_MSG_TYPE_PREVOTE = 1 [(gogoproto.enumvalue_customname) = "PrevoteType"];
+  SIGNED_MSG_TYPE_PRECOMMIT = 2 [(gogoproto.enumvalue_customname) = "PrecommitType"];
   // Proposals
-  SIGNED_MSG_TYPE_PROPOSAL = 3
-      [(gogoproto.enumvalue_customname) = "ProposalType"];
+  SIGNED_MSG_TYPE_PROPOSAL = 3 [(gogoproto.enumvalue_customname) = "ProposalType"];
 }
 
 // BlockIdFlag indicates which BlockID the signature is for
@@ -30,12 +25,9 @@ enum BlockIDFlag {
   option (gogoproto.goproto_enum_stringer) = true;
   option (gogoproto.goproto_enum_prefix) = false;
 
-  BLOCK_ID_FLAG_UNKNOWN = 0
-      [(gogoproto.enumvalue_customname) = "BlockIDFlagUnknown"];
-  BLOCK_ID_FLAG_ABSENT = 1
-      [(gogoproto.enumvalue_customname) = "BlockIDFlagAbsent"];
-  BLOCK_ID_FLAG_COMMIT = 2
-      [(gogoproto.enumvalue_customname) = "BlockIDFlagCommit"];
+  BLOCK_ID_FLAG_UNKNOWN = 0 [(gogoproto.enumvalue_customname) = "BlockIDFlagUnknown"];
+  BLOCK_ID_FLAG_ABSENT = 1 [(gogoproto.enumvalue_customname) = "BlockIDFlagAbsent"];
+  BLOCK_ID_FLAG_COMMIT = 2 [(gogoproto.enumvalue_customname) = "BlockIDFlagCommit"];
   BLOCK_ID_FLAG_NIL = 3 [(gogoproto.enumvalue_customname) = "BlockIDFlagNil"];
 }
 
@@ -97,7 +89,7 @@ message Commit {
 
 message CommitSig {
   BlockIDFlag block_id_flag = 1;  // must match those in the enum above
-  bytes validator_address =  2;  // hash 256 20 bytes - this is the first 20 characters of a 32-byte -
+  Address validator_address =  2;  // hash 256 20 bytes - this is the first 20 characters of a 32-byte -
                                 // key - SHA256(pubkey)[:20]
   Timestamp timestamp = 3 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   bytes signature = 4;  // length should be > 0 and < 64
@@ -124,7 +116,7 @@ message Header {
   bytes app_hash = 11 [(fig.bytetype) ="Hash"];  // determined by application, not a fixed length
   bytes last_results_hash = 12 [(fig.bytetype) = "Hash"];  // hash 256 32 bytes - first block will be results of an empty hash
   bytes evidence_hash = 13 [(fig.bytetype) = "Hash"];  // hash sha256 32 bytes
-  bytes proposer_address = 14 [(fig.bytetype) = "Address"];  // hash 256 20 bytes - this is the first 20 characters
+  Address proposer_address = 14;  // hash 256 20 bytes - this is the first 20 characters
                         // of a 32-byte key - SHA256(pubkey)[:20]
 }
 
@@ -176,7 +168,7 @@ message EventDataVote {
   int32 round = 3;    // must be > 0
   BlockID block_id = 4 [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
   Timestamp timestamp = 5 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
-  bytes validator_address = 6 [(fig.bytetype) = "Address"];  // hash with a length of 20
+  Address validator_address = 6;  // hash with a length of 20
   int32 validator_index = 7;
   bytes signature = 8;  // hash length should be >0 and <64
 }
@@ -210,7 +202,7 @@ message EvidenceList {
 }
 
 message Validator {
-  bytes address = 1 [(fig.bytetype) = "Address"];
+  bytes address = 1;
   PublicKey pub_key = 2 [(gogoproto.nullable) = false];  // must be >0
   int64 voting_power = 3;
   int64 proposer_priority = 4;
@@ -229,13 +221,13 @@ message PublicKey {
 message TxResult {
   uint64 height = 1;
   uint32 index = 2;
-  bytes tx = 3 [(fig.bytetype) = "Transaction"];
+  bytes tx = 3;
   ResponseDeliverTx result = 4;
 }
 
 message ResponseDeliverTx {
   uint32 code = 1;
-  bytes data = 2 [(fig.bytetype) = "Data"];
+  bytes data = 2;
   string log = 3;
   string info = 4;
   int64 gas_wanted = 5 [json_name = "gas_wanted"];
@@ -277,7 +269,7 @@ message ValidatorInfo {
 
 // Unsure about this piece, needs confirming
 message Address {
-  bytes address = 1 [(fig.bytetype) = "Address"];
+  bytes address = 1;
 }
 
 // EventDataCompleteProposal
