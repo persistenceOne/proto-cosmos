@@ -6,7 +6,6 @@ option go_package = "github.com/figment-networks/tendermint-protobuf-def/codec";
 
 import "gogo.proto";
 import "google/protobuf/descriptor.proto";
-import "google/protobuf/timestamp.proto";
 
 // used in Vote
 enum SignedMsgType {
@@ -95,7 +94,7 @@ message CommitSig {
   Address validator_address =
       2;  // hash 256 20 bytes - this is the first 20 characters of a 32-byte -
           // key - SHA256(pubkey)[:20]
-  google.protobuf.Timestamp timestamp = 3
+  Timestamp timestamp = 3
       [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   bytes signature = 4;  // length should be > 0 and < 64
 }
@@ -111,8 +110,7 @@ message Header {
   Consensus version = 1 [(gogoproto.nullable) = false];
   string chain_id = 2 [(gogoproto.customname) = "ChainID"];
   uint64 height = 3;
-  google.protobuf.Timestamp time = 4
-      [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+  Timestamp time = 4 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   BlockID last_block_id = 5 [(gogoproto.nullable) = false];
   bytes last_commit_hash = 6 [(fig.bytetype) = "Hash"];  // hash 256 32 bytes
   bytes data_hash = 7 [(fig.bytetype) = "Hash"];         // hash 256 32 bytes
@@ -164,7 +162,7 @@ message DuplicateVoteEvidence {
   EventDataVote vote_b = 2;
   int64 total_voting_power = 3;
   int64 validator_power = 4;
-  google.protobuf.Timestamp timestamp = 5
+  Timestamp timestamp = 5
       [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
 }
 
@@ -182,7 +180,7 @@ message EventDataVote {
   int32 round = 3;    // must be > 0
   BlockID block_id = 4
       [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
-  google.protobuf.Timestamp timestamp = 5
+  Timestamp timestamp = 5
       [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   Address validator_address = 6;  // hash with a length of 20
   int32 validator_index = 7;
@@ -194,7 +192,7 @@ message LightClientAttackEvidence {
   int64 common_height = 2;
   repeated Validator byzantine_validators = 3;
   int64 total_voting_power = 4;
-  google.protobuf.Timestamp timestamp = 5
+  Timestamp timestamp = 5
       [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
 }
 
@@ -272,6 +270,11 @@ message Address {
 // EventDataValidatorSetUpdates
 message EventDataValidatorSetUpdates {
   repeated Validator validator_updates = 1;
+}
+
+message Timestamp {
+  int64 seconds = 1;
+  int32 nanos = 2;
 }
 
 message fig {
