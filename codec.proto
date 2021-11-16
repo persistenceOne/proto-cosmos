@@ -15,8 +15,7 @@ enum SignedMsgType {
   SIGNED_MSG_TYPE_UNKNOWN = 0 [(gogoproto.enumvalue_customname) = "UnknownType"];
   // Votes
   SIGNED_MSG_TYPE_PREVOTE = 1 [(gogoproto.enumvalue_customname) = "PrevoteType"];
-  SIGNED_MSG_TYPE_PRECOMMIT = 2
-      [(gogoproto.enumvalue_customname) = "PrecommitType"];
+  SIGNED_MSG_TYPE_PRECOMMIT = 2 [(gogoproto.enumvalue_customname) = "PrecommitType"];
   // Proposals
   SIGNED_MSG_TYPE_PROPOSAL = 3 [(gogoproto.enumvalue_customname) = "ProposalType"];
 }
