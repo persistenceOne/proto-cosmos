@@ -12,4 +12,8 @@ endif
 
 .PHONY: build-proto
 build-proto:
-	@protoc -I ./ --go_out=. codec.proto
+	@mkdir -p ./codec
+	@protoc \
+		--proto_path ./ \
+		--go_out=paths=source_relative:./codec \
+		codec.proto
