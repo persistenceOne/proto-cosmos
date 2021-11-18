@@ -34,7 +34,14 @@ enum BlockIDFlag {
 message EventList {
   EventBlock newblock = 1;
   repeated EventTx transaction = 2;
-  EventValidatorSetUpdates validatorsetupdates = 3;
+  EventVote vote = 3;
+  EventRoundState roundstate = 4;
+  EventNewRound newround = 5;
+  EventCompleteProposal completeproposal = 6;
+  EventValidatorSetUpdates validatorsetupdates = 7;
+  EventString Eventstring = 8;
+  EventBlockSyncStatus blocksyncstatus = 9;
+  EventStateSyncStatus statesyncstatus = 10;
 }
 
 // EventBlock
@@ -74,15 +81,15 @@ message Block {
 }
 
 message Commit {
-  uint64 height = 1; // must be > 0
-  int32 round = 2; // must be > 0
+  uint64 height = 1;  // must be > 0
+  int32 round = 2;    // must be > 0
   BlockID block_id = 3 [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
-  repeated CommitSig signatures = 4 [(gogoproto.nullable) = false]; // must be > 0
+  repeated CommitSig signatures = 4 [(gogoproto.nullable) = false];  // must be > 0
 }
 
 message CommitSig {
   BlockIDFlag block_id_flag = 1;  // must match those in the enum above
-  Address validator_address = 2;  // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
+  Address validator_address = 2;  // hash 256 20 bytes - this is the first 20 characters of a 32-byte - key - SHA256(pubkey)[:20]
   Timestamp timestamp = 3 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   bytes signature = 4;  // length should be > 0 and < 64
 }
@@ -108,7 +115,7 @@ message Header {
   bytes app_hash = 11 [(fig.bytetype) = "Hash"];  // determined by application, not a fixed length
   bytes last_results_hash = 12 [(fig.bytetype) = "Hash"];  // hash 256 32 bytes - first block will be results of an empty hash
   bytes evidence_hash = 13 [(fig.bytetype) = "Hash"];  // hash sha256 32 bytes
-  Address proposer_address = 14; // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
+  Address proposer_address = 14;  // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
 }
 
 message Consensus {
@@ -124,7 +131,7 @@ message BlockID {
 
 message PartSetHeader {
   uint32 total = 1;
-  bytes hash = 2 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes
+  bytes hash = 2 [(fig.bytetype) = "Hash"];  // hash 256 32 bytes
 }
 
 message Data {
@@ -153,7 +160,7 @@ message EventTx {
 
 // EventVote
 message EventVote {
-  SignedMsgType eventvotetype = 1 [json_name = "type"]; // should be present in the enum at the top of this file
+  SignedMsgType eventvotetype = 1 [json_name = "type"];   // should be present in the enum at the top of this file
   uint64 height = 2;  // must be > 0
   int32 round = 3;    // must be > 0
   BlockID block_id = 4 [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
@@ -237,13 +244,60 @@ message EventAttribute {
   bool index = 3;
 }
 
+// EventRoundState
+message EventRoundState {
+  uint64 height = 1;
+  int32 round = 2;
+  string step = 3;
+}
+
+// EventNewRound
+message EventNewRound {
+  uint64 height = 1;
+  int32 round = 2;
+  string step = 3;
+  ValidatorInfo proposer = 4;
+}
+
+message ValidatorInfo {
+  Address address = 1;
+  int32 index = 2;
+}
+
+// Unsure about this piece, needs confirming
 message Address {
   bytes address = 1;
+}
+
+// EventCompleteProposal
+message EventCompleteProposal {
+  uint64 height = 1;
+  int32 round = 2;
+  string step = 3;
+  BlockID block_id = 4;
 }
 
 // EventValidatorSetUpdates
 message EventValidatorSetUpdates {
   repeated Validator validator_updates = 1;
+}
+
+// EventString is just a string and not a struct, unsure how we make a
+// message for this one
+message EventString {
+  string Eventstring = 1;
+}
+
+// EventBlockSyncStatus
+message EventBlockSyncStatus {
+  bool complete = 1;
+  uint64 height = 2;
+}
+
+// EventStateSyncStatus
+message EventStateSyncStatus {
+  bool complete = 1;
+  uint64 height = 2;
 }
 
 message Timestamp {
