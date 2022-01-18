@@ -39,7 +39,6 @@ message Block {
 }
 
 message BlockID {
-  // bytes hash = 1 [(fig.bytetype) = "Hash"];
   bytes         hash            = 1;
   PartSetHeader part_set_header = 2 [(gogoproto.nullable) = false];
 }
@@ -71,10 +70,10 @@ message Consensus {
 }
 
 message ConsensusParams {
-  BlockParams     block     = 1;
-  EvidenceParams  evidence  = 2;
-  ValidatorParams validator = 3;
-  VersionParams   version   = 4;
+  BlockParams     block     = 1 [(gogoproto.nullable) = false];
+  EvidenceParams  evidence  = 2 [(gogoproto.nullable) = false];
+  ValidatorParams validator = 3 [(gogoproto.nullable) = false];
+  VersionParams   version   = 4 [(gogoproto.nullable) = false];
 }
 
 message Data {
@@ -95,7 +94,7 @@ message DuplicateVoteEvidence {
 }
 
 message Event {
-  string                  type       = 1;
+  string                  event_type = 1 [json_name = "type"];
   repeated EventAttribute attributes = 2 [
     (gogoproto.nullable) = false,
     (gogoproto.jsontag)  = "attributes,omitempty"
@@ -103,9 +102,9 @@ message Event {
 }
 
 message EventAttribute {
-  bytes key   = 1;
-  bytes value = 2;
-  bool  index = 3; // nondeterministic
+  string  key   = 1;
+  string  value = 2;
+  bool    index = 3; // nondeterministic
 }
 
 message EventBlock {
@@ -123,8 +122,8 @@ message EventData {
 
 // EventList
 message EventList {
-  EventBlock                new_block            = 1;
-  repeated EventTx          transaction         = 2;
+  EventBlock                new_block             = 1;
+  repeated EventTx          transaction           = 2;
   EventValidatorSetUpdates  validator_set_updates = 3;
 }
 
@@ -165,27 +164,20 @@ message EvidenceParams {
   int64     max_bytes           = 3; // Default is 1048576 or 1MB
 }
 
-// fig
-message fig {
-  extend google.protobuf.FieldOptions {
-    string bytetype = 50003;
-  }
-}
-
 message Header {
   Consensus version               = 1 [(gogoproto.nullable) = false];
   string    chain_id              = 2 [(gogoproto.customname) = "ChainID"];
   uint64    height                = 3;
   Timestamp time                  = 4 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   BlockID   last_block_id         = 5 [(gogoproto.nullable) = false];
-  bytes     last_commit_hash      = 6 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes
-  bytes     data_hash             = 7 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes
-  bytes     validators_hash       = 8 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes
-  bytes     next_validators_hash  = 9 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes
-  bytes     consensus_hash        = 10 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes
-  bytes     app_hash              = 11 [(fig.bytetype) = "Hash"]; // determined by application, not a fixed length
-  bytes     last_results_hash     = 12 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes - first block will be results of an empty hash
-  bytes     evidence_hash         = 13 [(fig.bytetype) = "Hash"]; // hash sha256 32 bytes
+  bytes     last_commit_hash      = 6; // hash 256 32 bytes
+  bytes     data_hash             = 7; // hash 256 32 bytes
+  bytes     validators_hash       = 8; // hash 256 32 bytes
+  bytes     next_validators_hash  = 9; // hash 256 32 bytes
+  bytes     consensus_hash        = 10; // hash 256 32 bytes
+  bytes     app_hash              = 11; // determined by application, not a fixed length
+  bytes     last_results_hash     = 12; // hash 256 32 bytes - first block will be results of an empty hash
+  bytes     evidence_hash         = 13; // hash sha256 32 bytes
   bytes     proposer_address      = 14; // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
 }
 
@@ -214,7 +206,7 @@ message PublicKey {
 
 message PartSetHeader {
   uint32  total = 1;
-  bytes   hash  = 2 [(fig.bytetype) = "Hash"]; // hash 256 32 bytes
+  bytes   hash  = 2; // hash 256 32 bytes
 }
 
 message ResponseBeginBlock {
