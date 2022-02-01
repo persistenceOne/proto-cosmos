@@ -130,6 +130,63 @@ func (BlockIDFlag) EnumDescriptor() ([]byte, []int) {
 	return file_codec_proto_rawDescGZIP(), []int{1}
 }
 
+// EventData
+type EventData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Event *Event      `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
+	Block *EventBlock `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
+}
+
+func (x *EventData) Reset() {
+	*x = EventData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_codec_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EventData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EventData) ProtoMessage() {}
+
+func (x *EventData) ProtoReflect() protoreflect.Message {
+	mi := &file_codec_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EventData.ProtoReflect.Descriptor instead.
+func (*EventData) Descriptor() ([]byte, []int) {
+	return file_codec_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *EventData) GetEvent() *Event {
+	if x != nil {
+		return x.Event
+	}
+	return nil
+}
+
+func (x *EventData) GetBlock() *EventBlock {
+	if x != nil {
+		return x.Block
+	}
+	return nil
+}
+
+// EventList
 type EventList struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -143,7 +200,7 @@ type EventList struct {
 func (x *EventList) Reset() {
 	*x = EventList{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[0]
+		mi := &file_codec_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -156,7 +213,7 @@ func (x *EventList) String() string {
 func (*EventList) ProtoMessage() {}
 
 func (x *EventList) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[0]
+	mi := &file_codec_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -169,7 +226,7 @@ func (x *EventList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventList.ProtoReflect.Descriptor instead.
 func (*EventList) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{0}
+	return file_codec_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *EventList) GetNewBlock() *EventBlock {
@@ -193,32 +250,33 @@ func (x *EventList) GetValidatorSetUpdates() *EventValidatorSetUpdates {
 	return nil
 }
 
-type EventData struct {
+// Reward
+type Reward struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Event *Event      `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
-	Block *EventBlock `protobuf:"bytes,2,opt,name=block,proto3" json:"block,omitempty"`
+	Amount    string `protobuf:"bytes,1,opt,name=amount,proto3" json:"amount,omitempty"`
+	Validator string `protobuf:"bytes,2,opt,name=validator,proto3" json:"validator,omitempty"`
 }
 
-func (x *EventData) Reset() {
-	*x = EventData{}
+func (x *Reward) Reset() {
+	*x = Reward{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[1]
+		mi := &file_codec_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *EventData) String() string {
+func (x *Reward) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*EventData) ProtoMessage() {}
+func (*Reward) ProtoMessage() {}
 
-func (x *EventData) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[1]
+func (x *Reward) ProtoReflect() protoreflect.Message {
+	mi := &file_codec_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -229,23 +287,23 @@ func (x *EventData) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use EventData.ProtoReflect.Descriptor instead.
-func (*EventData) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{1}
+// Deprecated: Use Reward.ProtoReflect.Descriptor instead.
+func (*Reward) Descriptor() ([]byte, []int) {
+	return file_codec_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *EventData) GetEvent() *Event {
+func (x *Reward) GetAmount() string {
 	if x != nil {
-		return x.Event
+		return x.Amount
 	}
-	return nil
+	return ""
 }
 
-func (x *EventData) GetBlock() *EventBlock {
+func (x *Reward) GetValidator() string {
 	if x != nil {
-		return x.Block
+		return x.Validator
 	}
-	return nil
+	return ""
 }
 
 type Block struct {
@@ -262,7 +320,7 @@ type Block struct {
 func (x *Block) Reset() {
 	*x = Block{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[2]
+		mi := &file_codec_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -275,7 +333,7 @@ func (x *Block) String() string {
 func (*Block) ProtoMessage() {}
 
 func (x *Block) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[2]
+	mi := &file_codec_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -288,7 +346,7 @@ func (x *Block) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Block.ProtoReflect.Descriptor instead.
 func (*Block) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{2}
+	return file_codec_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *Block) GetHeader() *Header {
@@ -331,7 +389,7 @@ type BlockID struct {
 func (x *BlockID) Reset() {
 	*x = BlockID{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[3]
+		mi := &file_codec_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -344,7 +402,7 @@ func (x *BlockID) String() string {
 func (*BlockID) ProtoMessage() {}
 
 func (x *BlockID) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[3]
+	mi := &file_codec_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -357,7 +415,7 @@ func (x *BlockID) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BlockID.ProtoReflect.Descriptor instead.
 func (*BlockID) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{3}
+	return file_codec_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *BlockID) GetHash() []byte {
@@ -386,7 +444,7 @@ type BlockParams struct {
 func (x *BlockParams) Reset() {
 	*x = BlockParams{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[4]
+		mi := &file_codec_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -399,7 +457,7 @@ func (x *BlockParams) String() string {
 func (*BlockParams) ProtoMessage() {}
 
 func (x *BlockParams) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[4]
+	mi := &file_codec_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -412,7 +470,7 @@ func (x *BlockParams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BlockParams.ProtoReflect.Descriptor instead.
 func (*BlockParams) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{4}
+	return file_codec_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *BlockParams) GetMaxBytes() int64 {
@@ -443,7 +501,7 @@ type Commit struct {
 func (x *Commit) Reset() {
 	*x = Commit{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[5]
+		mi := &file_codec_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -456,7 +514,7 @@ func (x *Commit) String() string {
 func (*Commit) ProtoMessage() {}
 
 func (x *Commit) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[5]
+	mi := &file_codec_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -469,7 +527,7 @@ func (x *Commit) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Commit.ProtoReflect.Descriptor instead.
 func (*Commit) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{5}
+	return file_codec_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Commit) GetHeight() int64 {
@@ -506,15 +564,16 @@ type CommitSig struct {
 	unknownFields protoimpl.UnknownFields
 
 	BlockIdFlag      BlockIDFlag `protobuf:"varint,1,opt,name=block_id_flag,json=blockIdFlag,proto3,enum=fig.tendermint.codec.v1.BlockIDFlag" json:"block_id_flag,omitempty"` // must match those in the enum above
-	ValidatorAddress []byte      `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`                              // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
-	Timestamp        *Timestamp  `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	Signature        []byte      `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"` // length should be > 0 and < 64
+	ValidatorAddress []byte      `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`                              // hash 256 20 bytes - this is the first 20 characters of a 32-byte key -
+	// SHA256(pubkey)[:20]
+	Timestamp *Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Signature []byte     `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"` // length should be > 0 and < 64
 }
 
 func (x *CommitSig) Reset() {
 	*x = CommitSig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[6]
+		mi := &file_codec_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -527,7 +586,7 @@ func (x *CommitSig) String() string {
 func (*CommitSig) ProtoMessage() {}
 
 func (x *CommitSig) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[6]
+	mi := &file_codec_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -540,7 +599,7 @@ func (x *CommitSig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CommitSig.ProtoReflect.Descriptor instead.
 func (*CommitSig) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{6}
+	return file_codec_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CommitSig) GetBlockIdFlag() BlockIDFlag {
@@ -583,7 +642,7 @@ type Consensus struct {
 func (x *Consensus) Reset() {
 	*x = Consensus{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[7]
+		mi := &file_codec_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -596,7 +655,7 @@ func (x *Consensus) String() string {
 func (*Consensus) ProtoMessage() {}
 
 func (x *Consensus) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[7]
+	mi := &file_codec_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -609,7 +668,7 @@ func (x *Consensus) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Consensus.ProtoReflect.Descriptor instead.
 func (*Consensus) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{7}
+	return file_codec_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *Consensus) GetBlock() uint64 {
@@ -640,7 +699,7 @@ type ConsensusParams struct {
 func (x *ConsensusParams) Reset() {
 	*x = ConsensusParams{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[8]
+		mi := &file_codec_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -653,7 +712,7 @@ func (x *ConsensusParams) String() string {
 func (*ConsensusParams) ProtoMessage() {}
 
 func (x *ConsensusParams) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[8]
+	mi := &file_codec_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -666,7 +725,7 @@ func (x *ConsensusParams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConsensusParams.ProtoReflect.Descriptor instead.
 func (*ConsensusParams) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{8}
+	return file_codec_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ConsensusParams) GetBlock() *BlockParams {
@@ -708,7 +767,7 @@ type Data struct {
 func (x *Data) Reset() {
 	*x = Data{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[9]
+		mi := &file_codec_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -721,7 +780,7 @@ func (x *Data) String() string {
 func (*Data) ProtoMessage() {}
 
 func (x *Data) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[9]
+	mi := &file_codec_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -734,7 +793,7 @@ func (x *Data) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Data.ProtoReflect.Descriptor instead.
 func (*Data) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{9}
+	return file_codec_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *Data) GetTxs() [][]byte {
@@ -756,7 +815,7 @@ type Duration struct {
 func (x *Duration) Reset() {
 	*x = Duration{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[10]
+		mi := &file_codec_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -769,7 +828,7 @@ func (x *Duration) String() string {
 func (*Duration) ProtoMessage() {}
 
 func (x *Duration) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[10]
+	mi := &file_codec_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -782,7 +841,7 @@ func (x *Duration) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Duration.ProtoReflect.Descriptor instead.
 func (*Duration) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{10}
+	return file_codec_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Duration) GetSeconds() int64 {
@@ -814,7 +873,7 @@ type DuplicateVoteEvidence struct {
 func (x *DuplicateVoteEvidence) Reset() {
 	*x = DuplicateVoteEvidence{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[11]
+		mi := &file_codec_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -827,7 +886,7 @@ func (x *DuplicateVoteEvidence) String() string {
 func (*DuplicateVoteEvidence) ProtoMessage() {}
 
 func (x *DuplicateVoteEvidence) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[11]
+	mi := &file_codec_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -840,7 +899,7 @@ func (x *DuplicateVoteEvidence) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DuplicateVoteEvidence.ProtoReflect.Descriptor instead.
 func (*DuplicateVoteEvidence) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{11}
+	return file_codec_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *DuplicateVoteEvidence) GetVoteA() *EventVote {
@@ -890,7 +949,7 @@ type Event struct {
 func (x *Event) Reset() {
 	*x = Event{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[12]
+		mi := &file_codec_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -903,7 +962,7 @@ func (x *Event) String() string {
 func (*Event) ProtoMessage() {}
 
 func (x *Event) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[12]
+	mi := &file_codec_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -916,7 +975,7 @@ func (x *Event) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Event.ProtoReflect.Descriptor instead.
 func (*Event) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{12}
+	return file_codec_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *Event) GetEventType() string {
@@ -946,7 +1005,7 @@ type EventAttribute struct {
 func (x *EventAttribute) Reset() {
 	*x = EventAttribute{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[13]
+		mi := &file_codec_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -959,7 +1018,7 @@ func (x *EventAttribute) String() string {
 func (*EventAttribute) ProtoMessage() {}
 
 func (x *EventAttribute) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[13]
+	mi := &file_codec_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -972,7 +1031,7 @@ func (x *EventAttribute) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventAttribute.ProtoReflect.Descriptor instead.
 func (*EventAttribute) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{13}
+	return file_codec_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *EventAttribute) GetKey() string {
@@ -1010,7 +1069,7 @@ type EventBlock struct {
 func (x *EventBlock) Reset() {
 	*x = EventBlock{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[14]
+		mi := &file_codec_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1023,7 +1082,7 @@ func (x *EventBlock) String() string {
 func (*EventBlock) ProtoMessage() {}
 
 func (x *EventBlock) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[14]
+	mi := &file_codec_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1036,7 +1095,7 @@ func (x *EventBlock) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventBlock.ProtoReflect.Descriptor instead.
 func (*EventBlock) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{14}
+	return file_codec_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *EventBlock) GetBlock() *Block {
@@ -1078,7 +1137,7 @@ type EventTx struct {
 func (x *EventTx) Reset() {
 	*x = EventTx{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[15]
+		mi := &file_codec_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1091,7 +1150,7 @@ func (x *EventTx) String() string {
 func (*EventTx) ProtoMessage() {}
 
 func (x *EventTx) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[15]
+	mi := &file_codec_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1104,7 +1163,7 @@ func (x *EventTx) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventTx.ProtoReflect.Descriptor instead.
 func (*EventTx) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{15}
+	return file_codec_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *EventTx) GetTxResult() *TxResult {
@@ -1125,7 +1184,7 @@ type EventValidatorSetUpdates struct {
 func (x *EventValidatorSetUpdates) Reset() {
 	*x = EventValidatorSetUpdates{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[16]
+		mi := &file_codec_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1138,7 +1197,7 @@ func (x *EventValidatorSetUpdates) String() string {
 func (*EventValidatorSetUpdates) ProtoMessage() {}
 
 func (x *EventValidatorSetUpdates) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[16]
+	mi := &file_codec_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1151,7 +1210,7 @@ func (x *EventValidatorSetUpdates) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventValidatorSetUpdates.ProtoReflect.Descriptor instead.
 func (*EventValidatorSetUpdates) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{16}
+	return file_codec_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *EventValidatorSetUpdates) GetValidatorUpdates() []*Validator {
@@ -1179,7 +1238,7 @@ type EventVote struct {
 func (x *EventVote) Reset() {
 	*x = EventVote{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[17]
+		mi := &file_codec_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1192,7 +1251,7 @@ func (x *EventVote) String() string {
 func (*EventVote) ProtoMessage() {}
 
 func (x *EventVote) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[17]
+	mi := &file_codec_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1205,7 +1264,7 @@ func (x *EventVote) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventVote.ProtoReflect.Descriptor instead.
 func (*EventVote) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{17}
+	return file_codec_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *EventVote) GetEventVoteType() SignedMsgType {
@@ -1278,7 +1337,7 @@ type Evidence struct {
 func (x *Evidence) Reset() {
 	*x = Evidence{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[18]
+		mi := &file_codec_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1291,7 +1350,7 @@ func (x *Evidence) String() string {
 func (*Evidence) ProtoMessage() {}
 
 func (x *Evidence) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[18]
+	mi := &file_codec_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1304,7 +1363,7 @@ func (x *Evidence) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Evidence.ProtoReflect.Descriptor instead.
 func (*Evidence) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{18}
+	return file_codec_proto_rawDescGZIP(), []int{19}
 }
 
 func (m *Evidence) GetSum() isEvidence_Sum {
@@ -1355,7 +1414,7 @@ type EvidenceList struct {
 func (x *EvidenceList) Reset() {
 	*x = EvidenceList{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[19]
+		mi := &file_codec_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1368,7 +1427,7 @@ func (x *EvidenceList) String() string {
 func (*EvidenceList) ProtoMessage() {}
 
 func (x *EvidenceList) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[19]
+	mi := &file_codec_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1381,7 +1440,7 @@ func (x *EvidenceList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EvidenceList.ProtoReflect.Descriptor instead.
 func (*EvidenceList) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{19}
+	return file_codec_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *EvidenceList) GetEvidence() []*Evidence {
@@ -1404,7 +1463,7 @@ type EvidenceParams struct {
 func (x *EvidenceParams) Reset() {
 	*x = EvidenceParams{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[20]
+		mi := &file_codec_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1417,7 +1476,7 @@ func (x *EvidenceParams) String() string {
 func (*EvidenceParams) ProtoMessage() {}
 
 func (x *EvidenceParams) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[20]
+	mi := &file_codec_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1430,7 +1489,7 @@ func (x *EvidenceParams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EvidenceParams.ProtoReflect.Descriptor instead.
 func (*EvidenceParams) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{20}
+	return file_codec_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *EvidenceParams) GetMaxAgeNumBlocks() int64 {
@@ -1472,13 +1531,13 @@ type Header struct {
 	AppHash            []byte     `protobuf:"bytes,11,opt,name=app_hash,json=appHash,proto3" json:"app_hash,omitempty"`                                   // determined by application, not a fixed length
 	LastResultsHash    []byte     `protobuf:"bytes,12,opt,name=last_results_hash,json=lastResultsHash,proto3" json:"last_results_hash,omitempty"`         // hash 256 32 bytes - first block will be results of an empty hash
 	EvidenceHash       []byte     `protobuf:"bytes,13,opt,name=evidence_hash,json=evidenceHash,proto3" json:"evidence_hash,omitempty"`                    // hash sha256 32 bytes
-	ProposerAddress    []byte     `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`           // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
+	ProposerAddress    []byte     `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`           // hash 256 20 bytes - this is the first 20 characters of a 32-byte key -
 }
 
 func (x *Header) Reset() {
 	*x = Header{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[21]
+		mi := &file_codec_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1491,7 +1550,7 @@ func (x *Header) String() string {
 func (*Header) ProtoMessage() {}
 
 func (x *Header) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[21]
+	mi := &file_codec_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1504,7 +1563,7 @@ func (x *Header) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Header.ProtoReflect.Descriptor instead.
 func (*Header) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{21}
+	return file_codec_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *Header) GetVersion() *Consensus {
@@ -1617,7 +1676,7 @@ type LightBlock struct {
 func (x *LightBlock) Reset() {
 	*x = LightBlock{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[22]
+		mi := &file_codec_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1630,7 +1689,7 @@ func (x *LightBlock) String() string {
 func (*LightBlock) ProtoMessage() {}
 
 func (x *LightBlock) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[22]
+	mi := &file_codec_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1643,7 +1702,7 @@ func (x *LightBlock) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LightBlock.ProtoReflect.Descriptor instead.
 func (*LightBlock) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{22}
+	return file_codec_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *LightBlock) GetSignedHeader() *SignedHeader {
@@ -1675,7 +1734,7 @@ type LightClientAttackEvidence struct {
 func (x *LightClientAttackEvidence) Reset() {
 	*x = LightClientAttackEvidence{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[23]
+		mi := &file_codec_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1688,7 +1747,7 @@ func (x *LightClientAttackEvidence) String() string {
 func (*LightClientAttackEvidence) ProtoMessage() {}
 
 func (x *LightClientAttackEvidence) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[23]
+	mi := &file_codec_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1701,7 +1760,7 @@ func (x *LightClientAttackEvidence) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LightClientAttackEvidence.ProtoReflect.Descriptor instead.
 func (*LightClientAttackEvidence) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{23}
+	return file_codec_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *LightClientAttackEvidence) GetConflictingBlock() *LightBlock {
@@ -1753,7 +1812,7 @@ type PublicKey struct {
 func (x *PublicKey) Reset() {
 	*x = PublicKey{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[24]
+		mi := &file_codec_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1766,7 +1825,7 @@ func (x *PublicKey) String() string {
 func (*PublicKey) ProtoMessage() {}
 
 func (x *PublicKey) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[24]
+	mi := &file_codec_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1779,7 +1838,7 @@ func (x *PublicKey) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PublicKey.ProtoReflect.Descriptor instead.
 func (*PublicKey) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{24}
+	return file_codec_proto_rawDescGZIP(), []int{25}
 }
 
 func (m *PublicKey) GetSum() isPublicKey_Sum {
@@ -1831,7 +1890,7 @@ type PartSetHeader struct {
 func (x *PartSetHeader) Reset() {
 	*x = PartSetHeader{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[25]
+		mi := &file_codec_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1844,7 +1903,7 @@ func (x *PartSetHeader) String() string {
 func (*PartSetHeader) ProtoMessage() {}
 
 func (x *PartSetHeader) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[25]
+	mi := &file_codec_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1857,7 +1916,7 @@ func (x *PartSetHeader) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PartSetHeader.ProtoReflect.Descriptor instead.
 func (*PartSetHeader) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{25}
+	return file_codec_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *PartSetHeader) GetTotal() uint32 {
@@ -1885,7 +1944,7 @@ type ResponseBeginBlock struct {
 func (x *ResponseBeginBlock) Reset() {
 	*x = ResponseBeginBlock{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[26]
+		mi := &file_codec_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1898,7 +1957,7 @@ func (x *ResponseBeginBlock) String() string {
 func (*ResponseBeginBlock) ProtoMessage() {}
 
 func (x *ResponseBeginBlock) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[26]
+	mi := &file_codec_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1911,7 +1970,7 @@ func (x *ResponseBeginBlock) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResponseBeginBlock.ProtoReflect.Descriptor instead.
 func (*ResponseBeginBlock) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{26}
+	return file_codec_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *ResponseBeginBlock) GetEvents() []*Event {
@@ -1934,7 +1993,7 @@ type ResponseEndBlock struct {
 func (x *ResponseEndBlock) Reset() {
 	*x = ResponseEndBlock{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[27]
+		mi := &file_codec_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1947,7 +2006,7 @@ func (x *ResponseEndBlock) String() string {
 func (*ResponseEndBlock) ProtoMessage() {}
 
 func (x *ResponseEndBlock) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[27]
+	mi := &file_codec_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1960,7 +2019,7 @@ func (x *ResponseEndBlock) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResponseEndBlock.ProtoReflect.Descriptor instead.
 func (*ResponseEndBlock) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{27}
+	return file_codec_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *ResponseEndBlock) GetValidatorUpdates() []*ValidatorUpdate {
@@ -2002,7 +2061,7 @@ type ResponseDeliverTx struct {
 func (x *ResponseDeliverTx) Reset() {
 	*x = ResponseDeliverTx{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[28]
+		mi := &file_codec_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2015,7 +2074,7 @@ func (x *ResponseDeliverTx) String() string {
 func (*ResponseDeliverTx) ProtoMessage() {}
 
 func (x *ResponseDeliverTx) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[28]
+	mi := &file_codec_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2028,7 +2087,7 @@ func (x *ResponseDeliverTx) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResponseDeliverTx.ProtoReflect.Descriptor instead.
 func (*ResponseDeliverTx) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{28}
+	return file_codec_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *ResponseDeliverTx) GetCode() uint32 {
@@ -2099,7 +2158,7 @@ type SignedHeader struct {
 func (x *SignedHeader) Reset() {
 	*x = SignedHeader{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[29]
+		mi := &file_codec_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2112,7 +2171,7 @@ func (x *SignedHeader) String() string {
 func (*SignedHeader) ProtoMessage() {}
 
 func (x *SignedHeader) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[29]
+	mi := &file_codec_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2125,7 +2184,7 @@ func (x *SignedHeader) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SignedHeader.ProtoReflect.Descriptor instead.
 func (*SignedHeader) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{29}
+	return file_codec_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *SignedHeader) GetHeader() *Header {
@@ -2154,7 +2213,7 @@ type Timestamp struct {
 func (x *Timestamp) Reset() {
 	*x = Timestamp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[30]
+		mi := &file_codec_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2167,7 +2226,7 @@ func (x *Timestamp) String() string {
 func (*Timestamp) ProtoMessage() {}
 
 func (x *Timestamp) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[30]
+	mi := &file_codec_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2180,7 +2239,7 @@ func (x *Timestamp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Timestamp.ProtoReflect.Descriptor instead.
 func (*Timestamp) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{30}
+	return file_codec_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *Timestamp) GetSeconds() int64 {
@@ -2211,7 +2270,7 @@ type TxResult struct {
 func (x *TxResult) Reset() {
 	*x = TxResult{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[31]
+		mi := &file_codec_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2224,7 +2283,7 @@ func (x *TxResult) String() string {
 func (*TxResult) ProtoMessage() {}
 
 func (x *TxResult) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[31]
+	mi := &file_codec_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2237,7 +2296,7 @@ func (x *TxResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TxResult.ProtoReflect.Descriptor instead.
 func (*TxResult) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{31}
+	return file_codec_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *TxResult) GetHeight() uint64 {
@@ -2282,7 +2341,7 @@ type Validator struct {
 func (x *Validator) Reset() {
 	*x = Validator{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[32]
+		mi := &file_codec_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2295,7 +2354,7 @@ func (x *Validator) String() string {
 func (*Validator) ProtoMessage() {}
 
 func (x *Validator) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[32]
+	mi := &file_codec_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2308,7 +2367,7 @@ func (x *Validator) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Validator.ProtoReflect.Descriptor instead.
 func (*Validator) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{32}
+	return file_codec_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *Validator) GetAddress() []byte {
@@ -2350,7 +2409,7 @@ type ValidatorParams struct {
 func (x *ValidatorParams) Reset() {
 	*x = ValidatorParams{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[33]
+		mi := &file_codec_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2363,7 +2422,7 @@ func (x *ValidatorParams) String() string {
 func (*ValidatorParams) ProtoMessage() {}
 
 func (x *ValidatorParams) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[33]
+	mi := &file_codec_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2376,7 +2435,7 @@ func (x *ValidatorParams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidatorParams.ProtoReflect.Descriptor instead.
 func (*ValidatorParams) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{33}
+	return file_codec_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *ValidatorParams) GetPubKeyTypes() []string {
@@ -2399,7 +2458,7 @@ type ValidatorSet struct {
 func (x *ValidatorSet) Reset() {
 	*x = ValidatorSet{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[34]
+		mi := &file_codec_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2412,7 +2471,7 @@ func (x *ValidatorSet) String() string {
 func (*ValidatorSet) ProtoMessage() {}
 
 func (x *ValidatorSet) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[34]
+	mi := &file_codec_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2425,7 +2484,7 @@ func (x *ValidatorSet) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidatorSet.ProtoReflect.Descriptor instead.
 func (*ValidatorSet) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{34}
+	return file_codec_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *ValidatorSet) GetValidators() []*Validator {
@@ -2462,7 +2521,7 @@ type ValidatorUpdate struct {
 func (x *ValidatorUpdate) Reset() {
 	*x = ValidatorUpdate{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[35]
+		mi := &file_codec_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2475,7 +2534,7 @@ func (x *ValidatorUpdate) String() string {
 func (*ValidatorUpdate) ProtoMessage() {}
 
 func (x *ValidatorUpdate) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[35]
+	mi := &file_codec_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2488,7 +2547,7 @@ func (x *ValidatorUpdate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidatorUpdate.ProtoReflect.Descriptor instead.
 func (*ValidatorUpdate) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{35}
+	return file_codec_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *ValidatorUpdate) GetAddress() []byte {
@@ -2523,7 +2582,7 @@ type VersionParams struct {
 func (x *VersionParams) Reset() {
 	*x = VersionParams{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_codec_proto_msgTypes[36]
+		mi := &file_codec_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2536,7 +2595,7 @@ func (x *VersionParams) String() string {
 func (*VersionParams) ProtoMessage() {}
 
 func (x *VersionParams) ProtoReflect() protoreflect.Message {
-	mi := &file_codec_proto_msgTypes[36]
+	mi := &file_codec_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2549,7 +2608,7 @@ func (x *VersionParams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use VersionParams.ProtoReflect.Descriptor instead.
 func (*VersionParams) Descriptor() ([]byte, []int) {
-	return file_codec_proto_rawDescGZIP(), []int{36}
+	return file_codec_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *VersionParams) GetAppVersion() uint64 {
@@ -2567,30 +2626,34 @@ var file_codec_proto_rawDesc = []byte{
 	0x64, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x1a, 0x0a, 0x67, 0x6f, 0x67, 0x6f, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x1a, 0x20, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x62, 0x75, 0x66, 0x2f, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x6f, 0x72, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x22, 0xf8, 0x01, 0x0a, 0x09, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4c, 0x69,
-	0x73, 0x74, 0x12, 0x40, 0x0a, 0x09, 0x6e, 0x65, 0x77, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65, 0x6e, 0x64,
-	0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e,
-	0x45, 0x76, 0x65, 0x6e, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x08, 0x6e, 0x65, 0x77, 0x42,
-	0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x42, 0x0a, 0x0b, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74,
-	0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x66, 0x69, 0x67, 0x2e,
-	0x74, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63,
-	0x2e, 0x76, 0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x54, 0x78, 0x52, 0x0b, 0x74, 0x72, 0x61,
-	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x65, 0x0a, 0x15, 0x76, 0x61, 0x6c, 0x69,
-	0x64, 0x61, 0x74, 0x6f, 0x72, 0x5f, 0x73, 0x65, 0x74, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x31, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65,
+	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x7c, 0x0a, 0x09, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74,
+	0x61, 0x12, 0x34, 0x0a, 0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x1e, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x6d, 0x69, 0x6e,
+	0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74,
+	0x52, 0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x39, 0x0a, 0x05, 0x62, 0x6c, 0x6f, 0x63, 0x6b,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65, 0x6e,
+	0x64, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76, 0x31,
+	0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x05, 0x62, 0x6c, 0x6f,
+	0x63, 0x6b, 0x22, 0xf8, 0x01, 0x0a, 0x09, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74,
+	0x12, 0x40, 0x0a, 0x09, 0x6e, 0x65, 0x77, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x23, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65, 0x6e, 0x64, 0x65, 0x72,
+	0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x76,
+	0x65, 0x6e, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x08, 0x6e, 0x65, 0x77, 0x42, 0x6c, 0x6f,
+	0x63, 0x6b, 0x12, 0x42, 0x0a, 0x0b, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65,
 	0x6e, 0x64, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76,
-	0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x56, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x6f, 0x72,
-	0x53, 0x65, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x73, 0x52, 0x13, 0x76, 0x61, 0x6c, 0x69,
-	0x64, 0x61, 0x74, 0x6f, 0x72, 0x53, 0x65, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x73, 0x22,
-	0x7c, 0x0a, 0x09, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x34, 0x0a, 0x05,
-	0x65, 0x76, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x66, 0x69,
-	0x67, 0x2e, 0x74, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64,
-	0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x05, 0x65, 0x76, 0x65,
-	0x6e, 0x74, 0x12, 0x39, 0x0a, 0x05, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x23, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65, 0x6e, 0x64, 0x65, 0x72, 0x6d, 0x69,
-	0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e,
-	0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x05, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x22, 0x8a, 0x02,
+	0x31, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x54, 0x78, 0x52, 0x0b, 0x74, 0x72, 0x61, 0x6e, 0x73,
+	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x65, 0x0a, 0x15, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61,
+	0x74, 0x6f, 0x72, 0x5f, 0x73, 0x65, 0x74, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x73, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x31, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65, 0x6e, 0x64,
+	0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76, 0x31, 0x2e,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x56, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x6f, 0x72, 0x53, 0x65,
+	0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x73, 0x52, 0x13, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61,
+	0x74, 0x6f, 0x72, 0x53, 0x65, 0x74, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x73, 0x22, 0x3e, 0x0a,
+	0x06, 0x52, 0x65, 0x77, 0x61, 0x72, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e, 0x74, 0x12,
+	0x1c, 0x0a, 0x09, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x09, 0x76, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x8a, 0x02,
 	0x0a, 0x05, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x12, 0x3d, 0x0a, 0x06, 0x68, 0x65, 0x61, 0x64, 0x65,
 	0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x66, 0x69, 0x67, 0x2e, 0x74, 0x65,
 	0x6e, 0x64, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x74, 0x2e, 0x63, 0x6f, 0x64, 0x65, 0x63, 0x2e, 0x76,
@@ -3026,104 +3089,105 @@ func file_codec_proto_rawDescGZIP() []byte {
 }
 
 var file_codec_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_codec_proto_msgTypes = make([]protoimpl.MessageInfo, 37)
+var file_codec_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
 var file_codec_proto_goTypes = []interface{}{
 	(SignedMsgType)(0),                // 0: fig.tendermint.codec.v1.SignedMsgType
 	(BlockIDFlag)(0),                  // 1: fig.tendermint.codec.v1.BlockIDFlag
-	(*EventList)(nil),                 // 2: fig.tendermint.codec.v1.EventList
-	(*EventData)(nil),                 // 3: fig.tendermint.codec.v1.EventData
-	(*Block)(nil),                     // 4: fig.tendermint.codec.v1.Block
-	(*BlockID)(nil),                   // 5: fig.tendermint.codec.v1.BlockID
-	(*BlockParams)(nil),               // 6: fig.tendermint.codec.v1.BlockParams
-	(*Commit)(nil),                    // 7: fig.tendermint.codec.v1.Commit
-	(*CommitSig)(nil),                 // 8: fig.tendermint.codec.v1.CommitSig
-	(*Consensus)(nil),                 // 9: fig.tendermint.codec.v1.Consensus
-	(*ConsensusParams)(nil),           // 10: fig.tendermint.codec.v1.ConsensusParams
-	(*Data)(nil),                      // 11: fig.tendermint.codec.v1.Data
-	(*Duration)(nil),                  // 12: fig.tendermint.codec.v1.Duration
-	(*DuplicateVoteEvidence)(nil),     // 13: fig.tendermint.codec.v1.DuplicateVoteEvidence
-	(*Event)(nil),                     // 14: fig.tendermint.codec.v1.Event
-	(*EventAttribute)(nil),            // 15: fig.tendermint.codec.v1.EventAttribute
-	(*EventBlock)(nil),                // 16: fig.tendermint.codec.v1.EventBlock
-	(*EventTx)(nil),                   // 17: fig.tendermint.codec.v1.EventTx
-	(*EventValidatorSetUpdates)(nil),  // 18: fig.tendermint.codec.v1.EventValidatorSetUpdates
-	(*EventVote)(nil),                 // 19: fig.tendermint.codec.v1.EventVote
-	(*Evidence)(nil),                  // 20: fig.tendermint.codec.v1.Evidence
-	(*EvidenceList)(nil),              // 21: fig.tendermint.codec.v1.EvidenceList
-	(*EvidenceParams)(nil),            // 22: fig.tendermint.codec.v1.EvidenceParams
-	(*Header)(nil),                    // 23: fig.tendermint.codec.v1.Header
-	(*LightBlock)(nil),                // 24: fig.tendermint.codec.v1.LightBlock
-	(*LightClientAttackEvidence)(nil), // 25: fig.tendermint.codec.v1.LightClientAttackEvidence
-	(*PublicKey)(nil),                 // 26: fig.tendermint.codec.v1.PublicKey
-	(*PartSetHeader)(nil),             // 27: fig.tendermint.codec.v1.PartSetHeader
-	(*ResponseBeginBlock)(nil),        // 28: fig.tendermint.codec.v1.ResponseBeginBlock
-	(*ResponseEndBlock)(nil),          // 29: fig.tendermint.codec.v1.ResponseEndBlock
-	(*ResponseDeliverTx)(nil),         // 30: fig.tendermint.codec.v1.ResponseDeliverTx
-	(*SignedHeader)(nil),              // 31: fig.tendermint.codec.v1.SignedHeader
-	(*Timestamp)(nil),                 // 32: fig.tendermint.codec.v1.Timestamp
-	(*TxResult)(nil),                  // 33: fig.tendermint.codec.v1.TxResult
-	(*Validator)(nil),                 // 34: fig.tendermint.codec.v1.Validator
-	(*ValidatorParams)(nil),           // 35: fig.tendermint.codec.v1.ValidatorParams
-	(*ValidatorSet)(nil),              // 36: fig.tendermint.codec.v1.ValidatorSet
-	(*ValidatorUpdate)(nil),           // 37: fig.tendermint.codec.v1.ValidatorUpdate
-	(*VersionParams)(nil),             // 38: fig.tendermint.codec.v1.VersionParams
+	(*EventData)(nil),                 // 2: fig.tendermint.codec.v1.EventData
+	(*EventList)(nil),                 // 3: fig.tendermint.codec.v1.EventList
+	(*Reward)(nil),                    // 4: fig.tendermint.codec.v1.Reward
+	(*Block)(nil),                     // 5: fig.tendermint.codec.v1.Block
+	(*BlockID)(nil),                   // 6: fig.tendermint.codec.v1.BlockID
+	(*BlockParams)(nil),               // 7: fig.tendermint.codec.v1.BlockParams
+	(*Commit)(nil),                    // 8: fig.tendermint.codec.v1.Commit
+	(*CommitSig)(nil),                 // 9: fig.tendermint.codec.v1.CommitSig
+	(*Consensus)(nil),                 // 10: fig.tendermint.codec.v1.Consensus
+	(*ConsensusParams)(nil),           // 11: fig.tendermint.codec.v1.ConsensusParams
+	(*Data)(nil),                      // 12: fig.tendermint.codec.v1.Data
+	(*Duration)(nil),                  // 13: fig.tendermint.codec.v1.Duration
+	(*DuplicateVoteEvidence)(nil),     // 14: fig.tendermint.codec.v1.DuplicateVoteEvidence
+	(*Event)(nil),                     // 15: fig.tendermint.codec.v1.Event
+	(*EventAttribute)(nil),            // 16: fig.tendermint.codec.v1.EventAttribute
+	(*EventBlock)(nil),                // 17: fig.tendermint.codec.v1.EventBlock
+	(*EventTx)(nil),                   // 18: fig.tendermint.codec.v1.EventTx
+	(*EventValidatorSetUpdates)(nil),  // 19: fig.tendermint.codec.v1.EventValidatorSetUpdates
+	(*EventVote)(nil),                 // 20: fig.tendermint.codec.v1.EventVote
+	(*Evidence)(nil),                  // 21: fig.tendermint.codec.v1.Evidence
+	(*EvidenceList)(nil),              // 22: fig.tendermint.codec.v1.EvidenceList
+	(*EvidenceParams)(nil),            // 23: fig.tendermint.codec.v1.EvidenceParams
+	(*Header)(nil),                    // 24: fig.tendermint.codec.v1.Header
+	(*LightBlock)(nil),                // 25: fig.tendermint.codec.v1.LightBlock
+	(*LightClientAttackEvidence)(nil), // 26: fig.tendermint.codec.v1.LightClientAttackEvidence
+	(*PublicKey)(nil),                 // 27: fig.tendermint.codec.v1.PublicKey
+	(*PartSetHeader)(nil),             // 28: fig.tendermint.codec.v1.PartSetHeader
+	(*ResponseBeginBlock)(nil),        // 29: fig.tendermint.codec.v1.ResponseBeginBlock
+	(*ResponseEndBlock)(nil),          // 30: fig.tendermint.codec.v1.ResponseEndBlock
+	(*ResponseDeliverTx)(nil),         // 31: fig.tendermint.codec.v1.ResponseDeliverTx
+	(*SignedHeader)(nil),              // 32: fig.tendermint.codec.v1.SignedHeader
+	(*Timestamp)(nil),                 // 33: fig.tendermint.codec.v1.Timestamp
+	(*TxResult)(nil),                  // 34: fig.tendermint.codec.v1.TxResult
+	(*Validator)(nil),                 // 35: fig.tendermint.codec.v1.Validator
+	(*ValidatorParams)(nil),           // 36: fig.tendermint.codec.v1.ValidatorParams
+	(*ValidatorSet)(nil),              // 37: fig.tendermint.codec.v1.ValidatorSet
+	(*ValidatorUpdate)(nil),           // 38: fig.tendermint.codec.v1.ValidatorUpdate
+	(*VersionParams)(nil),             // 39: fig.tendermint.codec.v1.VersionParams
 }
 var file_codec_proto_depIdxs = []int32{
-	16, // 0: fig.tendermint.codec.v1.EventList.new_block:type_name -> fig.tendermint.codec.v1.EventBlock
-	17, // 1: fig.tendermint.codec.v1.EventList.transaction:type_name -> fig.tendermint.codec.v1.EventTx
-	18, // 2: fig.tendermint.codec.v1.EventList.validator_set_updates:type_name -> fig.tendermint.codec.v1.EventValidatorSetUpdates
-	14, // 3: fig.tendermint.codec.v1.EventData.event:type_name -> fig.tendermint.codec.v1.Event
-	16, // 4: fig.tendermint.codec.v1.EventData.block:type_name -> fig.tendermint.codec.v1.EventBlock
-	23, // 5: fig.tendermint.codec.v1.Block.header:type_name -> fig.tendermint.codec.v1.Header
-	11, // 6: fig.tendermint.codec.v1.Block.data:type_name -> fig.tendermint.codec.v1.Data
-	21, // 7: fig.tendermint.codec.v1.Block.evidence:type_name -> fig.tendermint.codec.v1.EvidenceList
-	7,  // 8: fig.tendermint.codec.v1.Block.last_commit:type_name -> fig.tendermint.codec.v1.Commit
-	27, // 9: fig.tendermint.codec.v1.BlockID.part_set_header:type_name -> fig.tendermint.codec.v1.PartSetHeader
-	5,  // 10: fig.tendermint.codec.v1.Commit.block_id:type_name -> fig.tendermint.codec.v1.BlockID
-	8,  // 11: fig.tendermint.codec.v1.Commit.signatures:type_name -> fig.tendermint.codec.v1.CommitSig
+	15, // 0: fig.tendermint.codec.v1.EventData.event:type_name -> fig.tendermint.codec.v1.Event
+	17, // 1: fig.tendermint.codec.v1.EventData.block:type_name -> fig.tendermint.codec.v1.EventBlock
+	17, // 2: fig.tendermint.codec.v1.EventList.new_block:type_name -> fig.tendermint.codec.v1.EventBlock
+	18, // 3: fig.tendermint.codec.v1.EventList.transaction:type_name -> fig.tendermint.codec.v1.EventTx
+	19, // 4: fig.tendermint.codec.v1.EventList.validator_set_updates:type_name -> fig.tendermint.codec.v1.EventValidatorSetUpdates
+	24, // 5: fig.tendermint.codec.v1.Block.header:type_name -> fig.tendermint.codec.v1.Header
+	12, // 6: fig.tendermint.codec.v1.Block.data:type_name -> fig.tendermint.codec.v1.Data
+	22, // 7: fig.tendermint.codec.v1.Block.evidence:type_name -> fig.tendermint.codec.v1.EvidenceList
+	8,  // 8: fig.tendermint.codec.v1.Block.last_commit:type_name -> fig.tendermint.codec.v1.Commit
+	28, // 9: fig.tendermint.codec.v1.BlockID.part_set_header:type_name -> fig.tendermint.codec.v1.PartSetHeader
+	6,  // 10: fig.tendermint.codec.v1.Commit.block_id:type_name -> fig.tendermint.codec.v1.BlockID
+	9,  // 11: fig.tendermint.codec.v1.Commit.signatures:type_name -> fig.tendermint.codec.v1.CommitSig
 	1,  // 12: fig.tendermint.codec.v1.CommitSig.block_id_flag:type_name -> fig.tendermint.codec.v1.BlockIDFlag
-	32, // 13: fig.tendermint.codec.v1.CommitSig.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
-	6,  // 14: fig.tendermint.codec.v1.ConsensusParams.block:type_name -> fig.tendermint.codec.v1.BlockParams
-	22, // 15: fig.tendermint.codec.v1.ConsensusParams.evidence:type_name -> fig.tendermint.codec.v1.EvidenceParams
-	35, // 16: fig.tendermint.codec.v1.ConsensusParams.validator:type_name -> fig.tendermint.codec.v1.ValidatorParams
-	38, // 17: fig.tendermint.codec.v1.ConsensusParams.version:type_name -> fig.tendermint.codec.v1.VersionParams
-	19, // 18: fig.tendermint.codec.v1.DuplicateVoteEvidence.vote_a:type_name -> fig.tendermint.codec.v1.EventVote
-	19, // 19: fig.tendermint.codec.v1.DuplicateVoteEvidence.vote_b:type_name -> fig.tendermint.codec.v1.EventVote
-	32, // 20: fig.tendermint.codec.v1.DuplicateVoteEvidence.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
-	15, // 21: fig.tendermint.codec.v1.Event.attributes:type_name -> fig.tendermint.codec.v1.EventAttribute
-	4,  // 22: fig.tendermint.codec.v1.EventBlock.block:type_name -> fig.tendermint.codec.v1.Block
-	5,  // 23: fig.tendermint.codec.v1.EventBlock.block_id:type_name -> fig.tendermint.codec.v1.BlockID
-	28, // 24: fig.tendermint.codec.v1.EventBlock.result_begin_block:type_name -> fig.tendermint.codec.v1.ResponseBeginBlock
-	29, // 25: fig.tendermint.codec.v1.EventBlock.result_end_block:type_name -> fig.tendermint.codec.v1.ResponseEndBlock
-	33, // 26: fig.tendermint.codec.v1.EventTx.tx_result:type_name -> fig.tendermint.codec.v1.TxResult
-	34, // 27: fig.tendermint.codec.v1.EventValidatorSetUpdates.validator_updates:type_name -> fig.tendermint.codec.v1.Validator
+	33, // 13: fig.tendermint.codec.v1.CommitSig.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
+	7,  // 14: fig.tendermint.codec.v1.ConsensusParams.block:type_name -> fig.tendermint.codec.v1.BlockParams
+	23, // 15: fig.tendermint.codec.v1.ConsensusParams.evidence:type_name -> fig.tendermint.codec.v1.EvidenceParams
+	36, // 16: fig.tendermint.codec.v1.ConsensusParams.validator:type_name -> fig.tendermint.codec.v1.ValidatorParams
+	39, // 17: fig.tendermint.codec.v1.ConsensusParams.version:type_name -> fig.tendermint.codec.v1.VersionParams
+	20, // 18: fig.tendermint.codec.v1.DuplicateVoteEvidence.vote_a:type_name -> fig.tendermint.codec.v1.EventVote
+	20, // 19: fig.tendermint.codec.v1.DuplicateVoteEvidence.vote_b:type_name -> fig.tendermint.codec.v1.EventVote
+	33, // 20: fig.tendermint.codec.v1.DuplicateVoteEvidence.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
+	16, // 21: fig.tendermint.codec.v1.Event.attributes:type_name -> fig.tendermint.codec.v1.EventAttribute
+	5,  // 22: fig.tendermint.codec.v1.EventBlock.block:type_name -> fig.tendermint.codec.v1.Block
+	6,  // 23: fig.tendermint.codec.v1.EventBlock.block_id:type_name -> fig.tendermint.codec.v1.BlockID
+	29, // 24: fig.tendermint.codec.v1.EventBlock.result_begin_block:type_name -> fig.tendermint.codec.v1.ResponseBeginBlock
+	30, // 25: fig.tendermint.codec.v1.EventBlock.result_end_block:type_name -> fig.tendermint.codec.v1.ResponseEndBlock
+	34, // 26: fig.tendermint.codec.v1.EventTx.tx_result:type_name -> fig.tendermint.codec.v1.TxResult
+	35, // 27: fig.tendermint.codec.v1.EventValidatorSetUpdates.validator_updates:type_name -> fig.tendermint.codec.v1.Validator
 	0,  // 28: fig.tendermint.codec.v1.EventVote.event_vote_type:type_name -> fig.tendermint.codec.v1.SignedMsgType
-	5,  // 29: fig.tendermint.codec.v1.EventVote.block_id:type_name -> fig.tendermint.codec.v1.BlockID
-	32, // 30: fig.tendermint.codec.v1.EventVote.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
-	13, // 31: fig.tendermint.codec.v1.Evidence.duplicate_vote_evidence:type_name -> fig.tendermint.codec.v1.DuplicateVoteEvidence
-	25, // 32: fig.tendermint.codec.v1.Evidence.light_client_attack_evidence:type_name -> fig.tendermint.codec.v1.LightClientAttackEvidence
-	20, // 33: fig.tendermint.codec.v1.EvidenceList.evidence:type_name -> fig.tendermint.codec.v1.Evidence
-	12, // 34: fig.tendermint.codec.v1.EvidenceParams.max_age_duration:type_name -> fig.tendermint.codec.v1.Duration
-	9,  // 35: fig.tendermint.codec.v1.Header.version:type_name -> fig.tendermint.codec.v1.Consensus
-	32, // 36: fig.tendermint.codec.v1.Header.time:type_name -> fig.tendermint.codec.v1.Timestamp
-	5,  // 37: fig.tendermint.codec.v1.Header.last_block_id:type_name -> fig.tendermint.codec.v1.BlockID
-	31, // 38: fig.tendermint.codec.v1.LightBlock.signed_header:type_name -> fig.tendermint.codec.v1.SignedHeader
-	36, // 39: fig.tendermint.codec.v1.LightBlock.validator_set:type_name -> fig.tendermint.codec.v1.ValidatorSet
-	24, // 40: fig.tendermint.codec.v1.LightClientAttackEvidence.conflicting_block:type_name -> fig.tendermint.codec.v1.LightBlock
-	34, // 41: fig.tendermint.codec.v1.LightClientAttackEvidence.byzantine_validators:type_name -> fig.tendermint.codec.v1.Validator
-	32, // 42: fig.tendermint.codec.v1.LightClientAttackEvidence.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
-	14, // 43: fig.tendermint.codec.v1.ResponseBeginBlock.events:type_name -> fig.tendermint.codec.v1.Event
-	37, // 44: fig.tendermint.codec.v1.ResponseEndBlock.validator_updates:type_name -> fig.tendermint.codec.v1.ValidatorUpdate
-	10, // 45: fig.tendermint.codec.v1.ResponseEndBlock.consensus_param_updates:type_name -> fig.tendermint.codec.v1.ConsensusParams
-	14, // 46: fig.tendermint.codec.v1.ResponseEndBlock.events:type_name -> fig.tendermint.codec.v1.Event
-	14, // 47: fig.tendermint.codec.v1.ResponseDeliverTx.events:type_name -> fig.tendermint.codec.v1.Event
-	23, // 48: fig.tendermint.codec.v1.SignedHeader.header:type_name -> fig.tendermint.codec.v1.Header
-	7,  // 49: fig.tendermint.codec.v1.SignedHeader.commit:type_name -> fig.tendermint.codec.v1.Commit
-	30, // 50: fig.tendermint.codec.v1.TxResult.result:type_name -> fig.tendermint.codec.v1.ResponseDeliverTx
-	26, // 51: fig.tendermint.codec.v1.Validator.pub_key:type_name -> fig.tendermint.codec.v1.PublicKey
-	34, // 52: fig.tendermint.codec.v1.ValidatorSet.validators:type_name -> fig.tendermint.codec.v1.Validator
-	34, // 53: fig.tendermint.codec.v1.ValidatorSet.proposer:type_name -> fig.tendermint.codec.v1.Validator
-	26, // 54: fig.tendermint.codec.v1.ValidatorUpdate.pub_key:type_name -> fig.tendermint.codec.v1.PublicKey
+	6,  // 29: fig.tendermint.codec.v1.EventVote.block_id:type_name -> fig.tendermint.codec.v1.BlockID
+	33, // 30: fig.tendermint.codec.v1.EventVote.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
+	14, // 31: fig.tendermint.codec.v1.Evidence.duplicate_vote_evidence:type_name -> fig.tendermint.codec.v1.DuplicateVoteEvidence
+	26, // 32: fig.tendermint.codec.v1.Evidence.light_client_attack_evidence:type_name -> fig.tendermint.codec.v1.LightClientAttackEvidence
+	21, // 33: fig.tendermint.codec.v1.EvidenceList.evidence:type_name -> fig.tendermint.codec.v1.Evidence
+	13, // 34: fig.tendermint.codec.v1.EvidenceParams.max_age_duration:type_name -> fig.tendermint.codec.v1.Duration
+	10, // 35: fig.tendermint.codec.v1.Header.version:type_name -> fig.tendermint.codec.v1.Consensus
+	33, // 36: fig.tendermint.codec.v1.Header.time:type_name -> fig.tendermint.codec.v1.Timestamp
+	6,  // 37: fig.tendermint.codec.v1.Header.last_block_id:type_name -> fig.tendermint.codec.v1.BlockID
+	32, // 38: fig.tendermint.codec.v1.LightBlock.signed_header:type_name -> fig.tendermint.codec.v1.SignedHeader
+	37, // 39: fig.tendermint.codec.v1.LightBlock.validator_set:type_name -> fig.tendermint.codec.v1.ValidatorSet
+	25, // 40: fig.tendermint.codec.v1.LightClientAttackEvidence.conflicting_block:type_name -> fig.tendermint.codec.v1.LightBlock
+	35, // 41: fig.tendermint.codec.v1.LightClientAttackEvidence.byzantine_validators:type_name -> fig.tendermint.codec.v1.Validator
+	33, // 42: fig.tendermint.codec.v1.LightClientAttackEvidence.timestamp:type_name -> fig.tendermint.codec.v1.Timestamp
+	15, // 43: fig.tendermint.codec.v1.ResponseBeginBlock.events:type_name -> fig.tendermint.codec.v1.Event
+	38, // 44: fig.tendermint.codec.v1.ResponseEndBlock.validator_updates:type_name -> fig.tendermint.codec.v1.ValidatorUpdate
+	11, // 45: fig.tendermint.codec.v1.ResponseEndBlock.consensus_param_updates:type_name -> fig.tendermint.codec.v1.ConsensusParams
+	15, // 46: fig.tendermint.codec.v1.ResponseEndBlock.events:type_name -> fig.tendermint.codec.v1.Event
+	15, // 47: fig.tendermint.codec.v1.ResponseDeliverTx.events:type_name -> fig.tendermint.codec.v1.Event
+	24, // 48: fig.tendermint.codec.v1.SignedHeader.header:type_name -> fig.tendermint.codec.v1.Header
+	8,  // 49: fig.tendermint.codec.v1.SignedHeader.commit:type_name -> fig.tendermint.codec.v1.Commit
+	31, // 50: fig.tendermint.codec.v1.TxResult.result:type_name -> fig.tendermint.codec.v1.ResponseDeliverTx
+	27, // 51: fig.tendermint.codec.v1.Validator.pub_key:type_name -> fig.tendermint.codec.v1.PublicKey
+	35, // 52: fig.tendermint.codec.v1.ValidatorSet.validators:type_name -> fig.tendermint.codec.v1.Validator
+	35, // 53: fig.tendermint.codec.v1.ValidatorSet.proposer:type_name -> fig.tendermint.codec.v1.Validator
+	27, // 54: fig.tendermint.codec.v1.ValidatorUpdate.pub_key:type_name -> fig.tendermint.codec.v1.PublicKey
 	55, // [55:55] is the sub-list for method output_type
 	55, // [55:55] is the sub-list for method input_type
 	55, // [55:55] is the sub-list for extension type_name
@@ -3138,18 +3202,6 @@ func file_codec_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_codec_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventList); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_codec_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventData); i {
 			case 0:
 				return &v.state
@@ -3161,8 +3213,20 @@ func file_codec_proto_init() {
 				return nil
 			}
 		}
+		file_codec_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EventList); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 		file_codec_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Block); i {
+			switch v := v.(*Reward); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3174,7 +3238,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BlockID); i {
+			switch v := v.(*Block); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3186,7 +3250,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BlockParams); i {
+			switch v := v.(*BlockID); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3198,7 +3262,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Commit); i {
+			switch v := v.(*BlockParams); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3210,7 +3274,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CommitSig); i {
+			switch v := v.(*Commit); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3222,7 +3286,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Consensus); i {
+			switch v := v.(*CommitSig); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3234,7 +3298,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ConsensusParams); i {
+			switch v := v.(*Consensus); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3246,7 +3310,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Data); i {
+			switch v := v.(*ConsensusParams); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3258,7 +3322,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Duration); i {
+			switch v := v.(*Data); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3270,7 +3334,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DuplicateVoteEvidence); i {
+			switch v := v.(*Duration); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3282,7 +3346,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event); i {
+			switch v := v.(*DuplicateVoteEvidence); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3294,7 +3358,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventAttribute); i {
+			switch v := v.(*Event); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3306,7 +3370,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventBlock); i {
+			switch v := v.(*EventAttribute); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3318,7 +3382,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventTx); i {
+			switch v := v.(*EventBlock); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3330,7 +3394,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventValidatorSetUpdates); i {
+			switch v := v.(*EventTx); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3342,7 +3406,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventVote); i {
+			switch v := v.(*EventValidatorSetUpdates); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3354,7 +3418,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Evidence); i {
+			switch v := v.(*EventVote); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3366,7 +3430,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EvidenceList); i {
+			switch v := v.(*Evidence); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3378,7 +3442,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EvidenceParams); i {
+			switch v := v.(*EvidenceList); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3390,7 +3454,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Header); i {
+			switch v := v.(*EvidenceParams); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3402,7 +3466,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LightBlock); i {
+			switch v := v.(*Header); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3414,7 +3478,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LightClientAttackEvidence); i {
+			switch v := v.(*LightBlock); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3426,7 +3490,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PublicKey); i {
+			switch v := v.(*LightClientAttackEvidence); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3438,7 +3502,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PartSetHeader); i {
+			switch v := v.(*PublicKey); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3450,7 +3514,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ResponseBeginBlock); i {
+			switch v := v.(*PartSetHeader); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3462,7 +3526,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ResponseEndBlock); i {
+			switch v := v.(*ResponseBeginBlock); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3474,7 +3538,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ResponseDeliverTx); i {
+			switch v := v.(*ResponseEndBlock); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3486,7 +3550,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SignedHeader); i {
+			switch v := v.(*ResponseDeliverTx); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3498,7 +3562,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Timestamp); i {
+			switch v := v.(*SignedHeader); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3510,7 +3574,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TxResult); i {
+			switch v := v.(*Timestamp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3522,7 +3586,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Validator); i {
+			switch v := v.(*TxResult); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3534,7 +3598,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValidatorParams); i {
+			switch v := v.(*Validator); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3546,7 +3610,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValidatorSet); i {
+			switch v := v.(*ValidatorParams); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3558,7 +3622,7 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValidatorUpdate); i {
+			switch v := v.(*ValidatorSet); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3570,6 +3634,18 @@ func file_codec_proto_init() {
 			}
 		}
 		file_codec_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ValidatorUpdate); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_codec_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*VersionParams); i {
 			case 0:
 				return &v.state
@@ -3582,11 +3658,11 @@ func file_codec_proto_init() {
 			}
 		}
 	}
-	file_codec_proto_msgTypes[18].OneofWrappers = []interface{}{
+	file_codec_proto_msgTypes[19].OneofWrappers = []interface{}{
 		(*Evidence_DuplicateVoteEvidence)(nil),
 		(*Evidence_LightClientAttackEvidence)(nil),
 	}
-	file_codec_proto_msgTypes[24].OneofWrappers = []interface{}{
+	file_codec_proto_msgTypes[25].OneofWrappers = []interface{}{
 		(*PublicKey_Ed25519)(nil),
 		(*PublicKey_Secp256K1)(nil),
 	}
@@ -3596,7 +3672,7 @@ func file_codec_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_codec_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   37,
+			NumMessages:   38,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
