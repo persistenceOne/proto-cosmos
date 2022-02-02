@@ -1472,7 +1472,7 @@ type Header struct {
 	AppHash            []byte     `protobuf:"bytes,11,opt,name=app_hash,json=appHash,proto3" json:"app_hash,omitempty"`                                   // determined by application, not a fixed length
 	LastResultsHash    []byte     `protobuf:"bytes,12,opt,name=last_results_hash,json=lastResultsHash,proto3" json:"last_results_hash,omitempty"`         // hash 256 32 bytes - first block will be results of an empty hash
 	EvidenceHash       []byte     `protobuf:"bytes,13,opt,name=evidence_hash,json=evidenceHash,proto3" json:"evidence_hash,omitempty"`                    // hash sha256 32 bytes
-	ProposerAddress    []byte     `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`           // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
+	ProposerAddress    []byte     `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`           // hash 256 20 bytes - this is the first 20 characters of a 32-byte key -
 }
 
 func (x *Header) Reset() {
