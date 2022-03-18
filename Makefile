@@ -1,7 +1,5 @@
-.PHONY: all
-all: build
-
-build:
+.PHONY: generate
+generate:
 	@mkdir -p ./codec
 	@protoc \
 		--proto_path ./ \
