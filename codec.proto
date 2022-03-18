@@ -203,9 +203,7 @@ message PartSetHeader {
   bytes  hash  = 2; // hash 256 32 bytes
 }
 
-message ResponseBeginBlock {
-  repeated Event events = 1 [(gogoproto.nullable) = false, (gogoproto.jsontag) = "events,omitempty"];
-}
+message ResponseBeginBlock { repeated Event events = 1 [(gogoproto.nullable) = false, (gogoproto.jsontag) = "events,omitempty"]; }
 
 message ResponseEndBlock {
   repeated ValidatorUpdate validator_updates       = 1;

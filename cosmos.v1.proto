@@ -8,9 +8,6 @@ import "codec.proto";
 import "gogo.proto";
 import "google/protobuf/descriptor.proto";
 
-option(gogoproto.goproto_stringer_all) = false;
-option(gogoproto.stringer_all)         = false;
-
 enum SignMode {
   SIGN_MODE_UNSPECIFIED = 0; SIGN_MODE_DIRECT = 1; SIGN_MODE_TEXTUAL = 2; SIGN_MODE_DIRECT_AUX = 3;
   SIGN_MODE_LEGACY_AMINO_JSON                                                                  = 127;
@@ -58,8 +55,6 @@ message Multi {
 
 // cosmos.crypto.multisig.v1beta1.CompactBitArray
 message CompactBitArray {
-  option(gogoproto.goproto_stringer) = false;
-
   uint32 extra_bits_stored = 1;
   bytes  elems             = 2;
 }
@@ -91,11 +86,7 @@ message Any {
   bytes  value    = 2;
 }
 
-message PubKey {
-  option(gogoproto.goproto_stringer) = false;
-
-  bytes key = 1;
-}
+message PubKey { bytes key = 1; }
 
 enum State {
   STATE_UNINITIALIZED_UNSPECIFIED = 0 [(gogoproto.enumvalue_customname) = "UNINITIALIZED"];
@@ -466,7 +457,7 @@ message Packet {
 }
 
 message CosmosHeader {
-  fig.tendermint.codec.v1.SignedHeader signed_header =
+  fig.tendermint.v1.SignedHeader signed_header =
       1 [(gogoproto.embed) = true, (gogoproto.moretags) = "yaml:\"signed_header\""];
 
   fig.tendermint.codec.v1.ValidatorSet validator_set = 2 [(gogoproto.moretags) = "yaml:\"validator_set\""];
