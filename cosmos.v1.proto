@@ -4,6 +4,7 @@ package cosmos.v1;
 
 option go_package = "github.com/figment-networks/tendermint-protobuf-def/cosmos";
 
+import "codec.proto";
 import "gogo.proto";
 import "google/protobuf/descriptor.proto";
 
@@ -16,9 +17,9 @@ enum SignMode {
 }
 
 message Tx {
-  TxBody   body      = 1;
-  AuthInfo auth_info = 2;
-  // repeated bytes signatures = 3;
+  TxBody         body       = 1;
+  AuthInfo       auth_info  = 2;
+  repeated bytes signatures = 3;
 }
 
 message TxBody {
@@ -95,8 +96,6 @@ message PubKey {
 
   bytes key = 1;
 }
-
-// transaction messeges
 
 enum State {
   STATE_UNINITIALIZED_UNSPECIFIED = 0 [(gogoproto.enumvalue_customname) = "UNINITIALIZED"];
@@ -464,6 +463,15 @@ message Packet {
   bytes  data                = 6;
   Height timeout_height      = 7 [(gogoproto.moretags) = "yaml:\"timeout_height\"", (gogoproto.nullable) = false];
   uint64 timeout_timestamp   = 8 [(gogoproto.moretags) = "yaml:\"timeout_timestamp\""];
+}
+
+message CosmosHeader {
+  fig.tendermint.codec.v1.SignedHeader signed_header =
+      1 [(gogoproto.embed) = true, (gogoproto.moretags) = "yaml:\"signed_header\""];
+
+  fig.tendermint.codec.v1.ValidatorSet validator_set = 2 [(gogoproto.moretags) = "yaml:\"validator_set\""];
+  Height trusted_height = 3 [(gogoproto.nullable) = false, (gogoproto.moretags) = "yaml:\"trusted_height\""];
+  fig.tendermint.codec.v1.ValidatorSet trusted_validators = 4 [(gogoproto.moretags) = "yaml:\"trusted_validators\""];
 }
 
 extend google.protobuf.MessageOptions { string implements_interface = 93001; }
