@@ -40,9 +40,9 @@ message EventData {
   EventBlock block = 2;
 }
 
-message TxData {
-  ResponseDeliverTx tx    = 1;
-  EventBlock        block = 2;
+message TransactionData {
+  TxResult   tx    = 1;
+  EventBlock block = 2;
 }
 
 message Block {
