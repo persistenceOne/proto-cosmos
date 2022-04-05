@@ -85,12 +85,7 @@ message ConsensusParams {
   VersionParams   version   = 4 [(gogoproto.nullable) = false];
 }
 
-message Data { repeated Tx txs = 1; }
-
-message Tx {
-  bytes tx_hash = 1;
-  bytes tx_raw  = 2;
-}
+message Data { repeated bytes txs = 1; }
 
 message Duration {
   int64 seconds = 1;
@@ -231,10 +226,11 @@ message Timestamp {
 }
 
 message TxResult {
-  uint64            height = 1;
-  uint32            index  = 2;
-  Tx                tx     = 3;
-  ResponseDeliverTx result = 4;
+  bytes             hash   = 1;
+  uint64            height = 2;
+  uint32            index  = 3;
+  bytes             tx     = 4;
+  ResponseDeliverTx result = 5;
 }
 
 message Validator {
