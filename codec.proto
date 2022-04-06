@@ -226,11 +226,11 @@ message Timestamp {
 }
 
 message TxResult {
-  bytes             hash   = 1;
-  uint64            height = 2;
-  uint32            index  = 3;
-  bytes             tx     = 4;
-  ResponseDeliverTx result = 5;
+  uint64            height = 1;
+  uint32            index  = 2;
+  bytes             tx     = 3;
+  ResponseDeliverTx result = 4;
+  bytes             hash   = 5;
 }
 
 message Validator {
