@@ -47,9 +47,8 @@ message TransactionData {
 
 message Block {
   Header       header      = 1 [(gogoproto.nullable) = false];
-  Data         data        = 2 [(gogoproto.nullable) = false];
-  EvidenceList evidence    = 3 [(gogoproto.nullable) = false];
-  Commit       last_commit = 4;
+  EvidenceList evidence    = 2 [(gogoproto.nullable) = false];
+  Commit       last_commit = 3;
 }
 
 message BlockID {
@@ -88,13 +87,6 @@ message ConsensusParams {
   EvidenceParams  evidence  = 2 [(gogoproto.nullable) = false];
   ValidatorParams validator = 3 [(gogoproto.nullable) = false];
   VersionParams   version   = 4 [(gogoproto.nullable) = false];
-}
-
-message Data { repeated Tx txs = 1; }
-
-message Tx {
-  bytes tx_hash = 1;
-  bytes tx_raw  = 2;
 }
 
 message Duration {
@@ -238,8 +230,9 @@ message Timestamp {
 message TxResult {
   uint64            height = 1;
   uint32            index  = 2;
-  Tx                tx     = 3;
+  bytes             tx     = 3;
   ResponseDeliverTx result = 4;
+  bytes             hash   = 5;
 }
 
 message Validator {
