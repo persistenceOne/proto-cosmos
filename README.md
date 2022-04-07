@@ -12,6 +12,6 @@ make generate
 
 ## Protobuf formatting
 
-```
-clang-format '--style={BasedOnStyle: google, ColumnLimit: 130, IndentWidth: 2, SpacesBeforeTrailingComments: 1, PenaltyBreakComment: 10,AlignConsecutiveAssignments: true, AlignConsecutiveDeclarations: true}' < codec.proto
+```bash
+make format
 ```
