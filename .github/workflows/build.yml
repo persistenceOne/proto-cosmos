@@ -18,4 +18,5 @@ jobs:
       - run: go mod download
       - run: make generate
       - run: make format
-      - run: git diff --quiet
+      - run: git status
+      - run: git diff --quiet *.proto codec/*
