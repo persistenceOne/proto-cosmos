@@ -4,8 +4,9 @@ package fig.tendermint.codec.v1;
 
 option go_package = "github.com/figment-networks/tendermint-protobuf-def/codec";
 
-import "gogo.proto";
+import "gogoproto/gogo.proto";
 import "google/protobuf/descriptor.proto";
+import "cosmos/tx/v1beta1/tx.proto";
 
 // used in Vote
 enum SignedMsgType {
@@ -208,7 +209,7 @@ message ResponseEndBlock {
 
 message ResponseDeliverTx {
   uint32         code       = 1;
-  bytes          data       = 2;
+  cosmos.tx.v1beta1.Tx data       = 2;
   string         log        = 3;
   string         info       = 4;
   int64          gas_wanted = 5;
