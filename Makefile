@@ -5,4 +5,4 @@ generate:
 		--go_out=paths=source_relative:./codec \
 		*.proto
 format:
-	clang-format -i --style=file *.proto
+	@clang-format -i --style=file *.proto
