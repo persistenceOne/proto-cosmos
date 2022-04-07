@@ -42,9 +42,8 @@ message EventData {
 
 message Block {
   Header       header      = 1 [(gogoproto.nullable) = false];
-  Data         data        = 2 [(gogoproto.nullable) = false];
-  EvidenceList evidence    = 3 [(gogoproto.nullable) = false];
-  Commit       last_commit = 4;
+  EvidenceList evidence    = 2 [(gogoproto.nullable) = false];
+  Commit       last_commit = 3;
 }
 
 message BlockID {
@@ -84,8 +83,6 @@ message ConsensusParams {
   ValidatorParams validator = 3 [(gogoproto.nullable) = false];
   VersionParams   version   = 4 [(gogoproto.nullable) = false];
 }
-
-message Data { repeated bytes txs = 1; }
 
 message Duration {
   int64 seconds = 1;
