@@ -4,7 +4,7 @@ package liquidity.v1;
 
 option go_package = "github.com/figment-networks/tendermint-protobuf-def/cosmos";
 
-import "gogo.proto";
+import "gogoproto/gogo.proto";
 import "google/protobuf/descriptor.proto";
 import "cosmos.v1.proto";
 import "annotations.proto"; // protoc-gen-openapiv2/options/annotations.proto

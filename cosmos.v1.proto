@@ -4,8 +4,8 @@ package cosmos.v1;
 
 option go_package = "github.com/figment-networks/tendermint-protobuf-def/cosmos";
 
-import "codec.proto";
-import "gogo.proto";
+import "fig/tendermint/codec/v1/codec.proto";
+import "gogoproto/gogo.proto";
 import "google/protobuf/descriptor.proto";
 
 enum SignMode {
