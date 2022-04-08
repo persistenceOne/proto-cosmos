@@ -4,7 +4,7 @@ package fig.tendermint.codec.v1;
 
 option go_package = "github.com/figment-networks/tendermint-protobuf-def/codec";
 
-import "gogo.proto";
+import "gogoproto/gogo.proto";
 import "google/protobuf/descriptor.proto";
 
 // used in Vote
