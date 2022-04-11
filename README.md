@@ -4,7 +4,8 @@ This repository contains Protobuf definitions for the Tendermint Firehose integr
 
 The proto file in cosmos directory are from https://github.com/cosmos/cosmos-sdk/tree/v0.45.1/proto/cosmos
 
-`gogoproto/gogo.proto` come from https://github.com/gogo/protobuf/blob/master/gogoproto/gogo.proto
+`gogo.proto` come from https://github.com/regen-network/protobuf/blob/v1.3.3-alpha.regen.1/gogoproto/gogo.proto
+
 
 ## Generate Code
 
