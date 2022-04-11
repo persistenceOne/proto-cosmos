@@ -1,4 +1,5 @@
 BasedOnStyle: google
+Language: Proto
 ColumnLimit: 130
 IndentWidth: 2
 SpacesBeforeTrailingComments: 1
