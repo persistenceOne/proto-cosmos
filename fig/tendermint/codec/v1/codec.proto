@@ -6,22 +6,25 @@ option go_package = "github.com/figment-networks/tendermint-protobuf-def/pb/fig/
 
 import "gogoproto/gogo.proto";
 import "google/protobuf/descriptor.proto";
+import "cosmos/tx/v1beta1/tx.proto";
 
 // used in Vote
 enum SignedMsgType {
-  option(gogoproto.goproto_enum_stringer) = true; option(gogoproto.goproto_enum_prefix) = false;
+  option (gogoproto.goproto_enum_stringer) = true;
+  option (gogoproto.goproto_enum_prefix)   = false;
 
-  SIGNED_MSG_TYPE_UNKNOWN   = 0 [(gogoproto.enumvalue_customname) = "UnknownType"];
+  SIGNED_MSG_TYPE_UNKNOWN = 0 [(gogoproto.enumvalue_customname) = "UnknownType"];
   // Votes
   SIGNED_MSG_TYPE_PREVOTE   = 1 [(gogoproto.enumvalue_customname) = "PrevoteType"];
   SIGNED_MSG_TYPE_PRECOMMIT = 2 [(gogoproto.enumvalue_customname) = "PrecommitType"];
   // Proposals
-  SIGNED_MSG_TYPE_PROPOSAL  = 32 [(gogoproto.enumvalue_customname) = "ProposalType"];
+  SIGNED_MSG_TYPE_PROPOSAL = 32 [(gogoproto.enumvalue_customname) = "ProposalType"];
 }
 
 // BlockIdFlag indicates which BlockID the signature is for
 enum BlockIDFlag {
-  option(gogoproto.goproto_enum_stringer) = true; option(gogoproto.goproto_enum_prefix) = false;
+  option (gogoproto.goproto_enum_stringer) = true;
+  option (gogoproto.goproto_enum_prefix)   = false;
 
   BLOCK_ID_FLAG_UNKNOWN = 0 [(gogoproto.enumvalue_customname) = "BlockIDFlagUnknown"];
   BLOCK_ID_FLAG_ABSENT  = 1 [(gogoproto.enumvalue_customname) = "BlockIDFlagAbsent"];
@@ -76,7 +79,7 @@ message CommitSig {
 }
 
 message Consensus {
-  option(gogoproto.equal) = true;
+  option (gogoproto.equal) = true;
 
   uint64 block = 1;
   uint64 app   = 2;
@@ -120,9 +123,13 @@ message EventBlock {
   ResponseEndBlock   result_end_block   = 4;
 }
 
-message EventTx { TxResult tx_result = 1; }
+message EventTx {
+  TxResult tx_result = 1;
+}
 
-message EventValidatorSetUpdates { repeated Validator validator_updates = 1; }
+message EventValidatorSetUpdates {
+  repeated Validator validator_updates = 1;
+}
 
 message EventVote {
   SignedMsgType event_vote_type   = 1 [json_name = "type"]; // should be present in the enum at the top of this file
@@ -184,8 +191,8 @@ message LightClientAttackEvidence {
 }
 
 message PublicKey {
-  option(gogoproto.compare) = true;
-  option(gogoproto.equal)   = true;
+  option (gogoproto.compare) = true;
+  option (gogoproto.equal)   = true;
 
   oneof sum {
     bytes ed25519   = 1;
@@ -198,7 +205,9 @@ message PartSetHeader {
   bytes  hash  = 2; // hash 256 32 bytes
 }
 
-message ResponseBeginBlock { repeated Event events = 1 [(gogoproto.nullable) = false, (gogoproto.jsontag) = "events,omitempty"]; }
+message ResponseBeginBlock {
+  repeated Event events = 1 [(gogoproto.nullable) = false, (gogoproto.jsontag) = "events,omitempty"];
+}
 
 message ResponseEndBlock {
   repeated ValidatorUpdate validator_updates       = 1;
@@ -228,11 +237,11 @@ message Timestamp {
 }
 
 message TxResult {
-  uint64            height = 1;
-  uint32            index  = 2;
-  bytes             tx     = 3;
-  ResponseDeliverTx result = 4;
-  bytes             hash   = 5;
+  uint64               height = 1;
+  uint32               index  = 2;
+  cosmos.tx.v1beta1.Tx tx     = 3;
+  ResponseDeliverTx    result = 4;
+  bytes                hash   = 5;
 }
 
 message Validator {
@@ -243,8 +252,8 @@ message Validator {
 }
 
 message ValidatorParams {
-  option(gogoproto.populate) = true;
-  option(gogoproto.equal)    = true;
+  option (gogoproto.populate) = true;
+  option (gogoproto.equal)    = true;
 
   repeated string pub_key_types = 1;
 }
@@ -262,8 +271,8 @@ message ValidatorUpdate {
 }
 
 message VersionParams {
-  option(gogoproto.populate) = true;
-  option(gogoproto.equal)    = true;
+  option (gogoproto.populate) = true;
+  option (gogoproto.equal)    = true;
 
   uint64 app_version = 1;
 }

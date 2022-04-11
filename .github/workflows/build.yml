@@ -17,3 +17,6 @@ jobs:
       - run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
       - run: go mod download
       - run: make generate
+      - run: make format
+      - run: git status
+      - run: git diff --quiet *.proto codec/*
