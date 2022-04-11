@@ -1,7 +1,7 @@
 .PHONY: generate
 generate:
-	@mkdir -p ./codec
+	@mkdir -p ./pb
 	@protoc \
-		--proto_path ./ \
-		--go_out=paths=source_relative:./codec \
-		*.proto
+		--proto_path . \
+		--go_out=paths=source_relative:./pb \
+		./fig/tendermint/*/*/*.proto
