@@ -30,27 +30,34 @@ enum BlockIDFlag {
   BLOCK_ID_FLAG_NIL     = 3 [(gogoproto.enumvalue_customname) = "BlockIDFlagNil"];
 }
 
-message EventList {
-  EventBlock               new_block             = 1;
-  repeated EventTx         transaction           = 2;
-  EventValidatorSetUpdates validator_set_updates = 3;
+message Block {
+  Header             header             = 1 [(gogoproto.nullable) = false];
+  EvidenceList       evidence           = 2 [(gogoproto.nullable) = false];
+  Commit             last_commit        = 3;
+  ResponseBeginBlock result_begin_block = 4;
+  ResponseEndBlock   result_end_block   = 5;
+  repeated TxResult  transactions       = 7;
+  repeated Validator validator_updates  = 8;
+}
+
+// HeaderOnlyBlock is a standard [Block] structure where all other fields are
+// removed so that hydrating that object from a [Block] bytes payload will
+// drastically reduce allocated memory required to hold the full block.
+//
+// This can be used to unpack a [Block] when only the [Header] information
+// is required and greatly reduce required memory.
+message HeaderOnlyBlock {
+  Header header = 1 [(gogoproto.nullable) = false];
 }
 
 message EventData {
-  Event      event = 1;
-  EventBlock block = 2;
+  Event event = 1;
+  Block block = 2;
 }
 
 message TransactionData {
-  TxResult   tx    = 1;
-  EventBlock block = 2;
-}
-
-message Block {
-  Header header = 1 [(gogoproto.nullable) = false];
-  reserved 2; // Data data = 2 [(gogoproto.nullable) = false];
-  EvidenceList evidence    = 3 [(gogoproto.nullable) = false];
-  Commit       last_commit = 4;
+  TxResult tx    = 1;
+  Block    block = 2;
 }
 
 message BlockID {
@@ -115,21 +122,6 @@ message EventAttribute {
   bool   index = 3; // nondeterministic
 }
 
-message EventBlock {
-  Block              block              = 1;
-  BlockID            block_id           = 2; // not present in v0.34.13
-  ResponseBeginBlock result_begin_block = 3;
-  ResponseEndBlock   result_end_block   = 4;
-}
-
-message EventTx {
-  TxResult tx_result = 1;
-}
-
-message EventValidatorSetUpdates {
-  repeated Validator validator_updates = 1;
-}
-
 message EventVote {
   SignedMsgType event_vote_type   = 1 [json_name = "type"]; // should be present in the enum at the top of this file
   uint64        height            = 2;                      // must be > 0
@@ -172,8 +164,8 @@ message Header {
   bytes     app_hash             = 11; // determined by application, not a fixed length
   bytes     last_results_hash    = 12; // hash 256 32 bytes - first block will be results of an empty hash
   bytes     evidence_hash        = 13; // hash sha256 32 bytes
-  bytes     proposer_address     = 14; // hash 256 20 bytes - this is the first 20 characters of a 32-byte key -
-                                       // SHA256(pubkey)[:20]
+  bytes     proposer_address = 14; // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
+  bytes     hash             = 15;
 }
 
 message LightBlock {
