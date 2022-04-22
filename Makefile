@@ -5,11 +5,10 @@ all: generate format
 generate:
 	@mkdir -p ./pb
 	@protoc \
-		--proto_path . \
+		--proto_path ./ \
 		--proto_path ./third_party \
 		--go_out=paths=source_relative:./pb \
-		./fig/tendermint/*/*/*.proto
-
+		./fig/tendermint/*/*/codec.proto
 format:
 	@clang-format -i --style=file \
-	./fig/tendermint/*/*/*.proto
+		./fig/tendermint/*/*/*.proto
