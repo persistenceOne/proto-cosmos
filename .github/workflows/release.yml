@@ -66,11 +66,12 @@ jobs:
           cd graph-as-to-rust
           yarn install
           yarn tsc && node run.js
+          mv tendermint.rs generated.rs
 
       - name: Add Rust files to release
         working-directory: repos
         run: |
-          zip ../generated_rust_tendermint.zip ./graph-as-to-rust/tendermint.rs
+          zip ../generated_rust_tendermint.zip ./graph-as-to-rust/generated.rs
 
       - name: Create Release
         uses: ncipollo/release-action@v1
