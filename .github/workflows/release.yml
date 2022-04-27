@@ -24,7 +24,7 @@ jobs:
           node-version: 14.17.1
       - run: npm install -g typescript
 
-      - name: Setup protoc-gen-go
+      - name: Setup protoc
         uses: arduino/setup-protoc@v1
       
       - name: Add Protobuf files
