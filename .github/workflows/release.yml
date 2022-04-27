@@ -21,7 +21,7 @@ jobs:
       - name: Setup Typescript
         uses: actions/setup-node@v3
         with:
-          node-version: 14.17.1
+          node-version: 16 
       - run: npm install -g typescript
 
       - name: Setup protoc
