@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  main:
+    name: Create Protobuf generated files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup GO
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Setup Typescript
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16 
+      - run: npm install -g typescript
+
+      - name: Setup protoc
+        uses: arduino/setup-protoc@v1
+      
+      - name: Add Protobuf files
+        run: |
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
+          go mod download
+          make generate
+
+      - name: Add proto and pb files to release
+        run: |
+          zip generated_proto_files.zip ./fig -r
+          zip generated_pb_go.zip ./pb -r
+
+      - name: Setup Graph Proto as Schema
+        run: |
+          mkdir repos && cd repos
+          git clone https://github.com/figment-networks/graph-proto-as-schema
+          cd graph-proto-as-schema
+          yarn install
+          tsc
+          mkdir outp
+          node ./dist/index.js -o ./outp  -d ../../fig/tendermint/codec/v1 --typescript_namespace tendermint
+
+      - name: Add ts files to release
+        working-directory: repos
+        run: |
+          zip ../generated_ts_files.zip ./graph-proto-as-schema/outp -r
+
+      - name: Graph-ts
+        working-directory: repos
+        run: |
+          git clone --branch cosmos --single-branch https://github.com/figment-networks/graph-ts
+          cp -r ./graph-proto-as-schema/outp ./graph-ts/chain
+
+      - name: Graph-as-to-rust
+        working-directory: repos
+        run: |
+          git clone --branch tendermint --single-branch https://github.com/figment-networks/graph-as-to-rust
+          cd graph-as-to-rust
+          yarn install
+          yarn tsc && node run.js
+          mv tendermint.rs generated.rs
+
+      - name: Add Rust files to release
+        working-directory: repos
+        run: |
+          zip ../generated_rust_tendermint.zip ./graph-as-to-rust/generated.rs
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          artifacts: "generated_*.zip"
+          allowUpdates: true
