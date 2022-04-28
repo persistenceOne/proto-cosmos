@@ -15,9 +15,6 @@ The following 2 files are used to generate Go bindings:
 - `sf/cosmos/type/v1/type.proto`
 - `sf/cosmos/transform/v1/transform.proto`
 
-This file is used to generate tendermint.ts in graph-ts and is copied to graph-node/chain/tendermint/proto/codec.proto
-- `graph-ts/chain/tendermint.proto`
-
 The file in graph-ts are copied to graph-ts/chain/tendermint/proto/src/
 - `graph-ts/chain/tendermint/proto/src/annotations.proto`
 - `graph-ts/chain/tendermint/proto/src/cosmos.v1.proto`
