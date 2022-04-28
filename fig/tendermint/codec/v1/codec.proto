@@ -51,13 +51,13 @@ message HeaderOnlyBlock {
 }
 
 message EventData {
-  Event event = 1;
-  Block block = 2;
+  Event           event = 1;
+  HeaderOnlyBlock block = 2;
 }
 
 message TransactionData {
-  TxResult tx    = 1;
-  Block    block = 2;
+  TxResult        tx    = 1;
+  HeaderOnlyBlock block = 2;
 }
 
 message BlockID {
