@@ -1,1 +1,1 @@
-module github.com/figment-networks/tendermint-protobuf-def
+module github.com/figment-networks/proto-cosmos

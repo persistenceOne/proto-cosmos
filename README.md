@@ -1,6 +1,6 @@
-# tendermint-protobuf-def
+# Cosmos Protobuf definitions
 
-This repository contains Protobuf definitions for the Tendermint Firehose integration.
+This repository contains Protobuf definitions for the Cosmos Firehose integration.
 
 The GitHub workflow depends on `protoc` v3.20.0 and `protoc-gen-go` v1.27.1.
 

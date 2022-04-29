@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package sf.cosmos.type.v1;
 
-option go_package = "github.com/figment-networks/tendermint-protobuf-def/pb/sf/cosmos/type/v1;pbcosmos";
+option go_package = "github.com/figment-networks/proto-cosmos/pb/sf/cosmos/type/v1;pbcosmos";
 
 import "gogoproto/gogo.proto";
 import "google/protobuf/descriptor.proto";
