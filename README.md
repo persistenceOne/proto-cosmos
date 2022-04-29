@@ -11,11 +11,9 @@ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
 ```
 ## proto file destination
 
-Those 2 file are used to generate go binding
-- `fig/tendermint/codec/v1/codec.proto`
-- `fig/tendermint/transform/v1/transform.proto`
-This file is used to generate tendermint.ts in graph-ts and is copied to graph-node/chain/tendermint/proto/codec.proto
-- `graph-ts/chain/tendermint.proto`
+The following 2 files are used to generate Go bindings:
+- `sf/cosmos/type/v1/type.proto`
+- `sf/cosmos/transform/v1/transform.proto`
 
 The file in graph-ts are copied to graph-ts/chain/tendermint/proto/src/
 - `graph-ts/chain/tendermint/proto/src/annotations.proto`

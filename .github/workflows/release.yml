@@ -21,12 +21,12 @@ jobs:
       - name: Setup Typescript
         uses: actions/setup-node@v3
         with:
-          node-version: 16 
+          node-version: 16
       - run: npm install -g typescript
 
       - name: Setup protoc
         uses: arduino/setup-protoc@v1
-      
+
       - name: Add Protobuf files
         run: |
           go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
@@ -35,7 +35,7 @@ jobs:
 
       - name: Add proto and pb files to release
         run: |
-          zip generated_proto_files.zip ./fig -r
+          zip generated_proto_files.zip ./sf -r
           zip generated_pb_go.zip ./pb -r
 
       - name: Setup Graph Proto as Schema
@@ -45,8 +45,8 @@ jobs:
           cd graph-proto-as-schema
           yarn install
           tsc
-          mkdir outp
-          node ./dist/index.js -o ./outp  -d ../../fig/tendermint/codec/v1 --typescript_namespace tendermint
+          mkdir output
+          node ./dist/index.js -o ./output  -d ../../sf/cosmos/type/v1 --typescript_namespace cosmos
 
       - name: Add ts files to release
         working-directory: repos
@@ -57,7 +57,7 @@ jobs:
         working-directory: repos
         run: |
           git clone --branch cosmos --single-branch https://github.com/figment-networks/graph-ts
-          cp -r ./graph-proto-as-schema/outp ./graph-ts/chain
+          cp -r ./graph-proto-as-schema/output ./graph-ts/chain
 
       - name: Graph-as-to-rust
         working-directory: repos
@@ -71,7 +71,7 @@ jobs:
       - name: Add Rust files to release
         working-directory: repos
         run: |
-          zip ../generated_rust_tendermint.zip ./graph-as-to-rust/generated.rs
+          zip ../generated_rust_cosmos.zip ./graph-as-to-rust/generated.rs
 
       - name: Create Release
         uses: ncipollo/release-action@v1
