@@ -51,7 +51,7 @@ jobs:
       - name: Add ts files to release
         working-directory: repos
         run: |
-          zip ../generated_ts_files.zip ./graph-proto-as-schema/outp -r
+          zip ../generated_ts_files.zip ./graph-proto-as-schema/output -r
 
       - name: Graph-ts
         working-directory: repos
