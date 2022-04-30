@@ -27,12 +27,10 @@ const (
 type SignedMsgType int32
 
 const (
-	SignedMsgType_SIGNED_MSG_TYPE_UNKNOWN SignedMsgType = 0
-	// Votes
+	SignedMsgType_SIGNED_MSG_TYPE_UNKNOWN   SignedMsgType = 0
 	SignedMsgType_SIGNED_MSG_TYPE_PREVOTE   SignedMsgType = 1
 	SignedMsgType_SIGNED_MSG_TYPE_PRECOMMIT SignedMsgType = 2
-	// Proposals
-	SignedMsgType_SIGNED_MSG_TYPE_PROPOSAL SignedMsgType = 32
+	SignedMsgType_SIGNED_MSG_TYPE_PROPOSAL  SignedMsgType = 32
 )
 
 // Enum value maps for SignedMsgType.
@@ -133,18 +131,9 @@ func (BlockIDFlag) EnumDescriptor() ([]byte, []int) {
 type SignMode int32
 
 const (
-	// SIGN_MODE_UNSPECIFIED specifies an unknown signing mode and will be
-	// rejected
-	SignMode_SIGN_MODE_UNSPECIFIED SignMode = 0
-	// SIGN_MODE_DIRECT specifies a signing mode which uses SignDoc and is
-	// verified with raw bytes from Tx
-	SignMode_SIGN_MODE_DIRECT SignMode = 1
-	// SIGN_MODE_TEXTUAL is a future signing mode that will verify some
-	// human-readable textual representation on top of the binary representation
-	// from SIGN_MODE_DIRECT
-	SignMode_SIGN_MODE_TEXTUAL SignMode = 2
-	// SIGN_MODE_LEGACY_AMINO_JSON is a backwards compatibility mode which uses
-	// Amino JSON and will be removed in the future
+	SignMode_SIGN_MODE_UNSPECIFIED       SignMode = 0
+	SignMode_SIGN_MODE_DIRECT            SignMode = 1
+	SignMode_SIGN_MODE_TEXTUAL           SignMode = 2
 	SignMode_SIGN_MODE_LEGACY_AMINO_JSON SignMode = 127
 )
 
@@ -459,15 +448,15 @@ type Header struct {
 	Height             uint64     `protobuf:"varint,3,opt,name=height,proto3" json:"height,omitempty"`
 	Time               *Timestamp `protobuf:"bytes,4,opt,name=time,proto3" json:"time,omitempty"`
 	LastBlockId        *BlockID   `protobuf:"bytes,5,opt,name=last_block_id,json=lastBlockId,proto3" json:"last_block_id,omitempty"`
-	LastCommitHash     []byte     `protobuf:"bytes,6,opt,name=last_commit_hash,json=lastCommitHash,proto3" json:"last_commit_hash,omitempty"`             // hash 256 32 bytes
-	DataHash           []byte     `protobuf:"bytes,7,opt,name=data_hash,json=dataHash,proto3" json:"data_hash,omitempty"`                                 // hash 256 32 bytes
-	ValidatorsHash     []byte     `protobuf:"bytes,8,opt,name=validators_hash,json=validatorsHash,proto3" json:"validators_hash,omitempty"`               // hash 256 32 bytes
-	NextValidatorsHash []byte     `protobuf:"bytes,9,opt,name=next_validators_hash,json=nextValidatorsHash,proto3" json:"next_validators_hash,omitempty"` // hash 256 32 bytes
-	ConsensusHash      []byte     `protobuf:"bytes,10,opt,name=consensus_hash,json=consensusHash,proto3" json:"consensus_hash,omitempty"`                 // hash 256 32 bytes
-	AppHash            []byte     `protobuf:"bytes,11,opt,name=app_hash,json=appHash,proto3" json:"app_hash,omitempty"`                                   // determined by application, not a fixed length
-	LastResultsHash    []byte     `protobuf:"bytes,12,opt,name=last_results_hash,json=lastResultsHash,proto3" json:"last_results_hash,omitempty"`         // hash 256 32 bytes - first block will be results of an empty hash
-	EvidenceHash       []byte     `protobuf:"bytes,13,opt,name=evidence_hash,json=evidenceHash,proto3" json:"evidence_hash,omitempty"`                    // hash sha256 32 bytes
-	ProposerAddress    []byte     `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`           // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
+	LastCommitHash     []byte     `protobuf:"bytes,6,opt,name=last_commit_hash,json=lastCommitHash,proto3" json:"last_commit_hash,omitempty"`
+	DataHash           []byte     `protobuf:"bytes,7,opt,name=data_hash,json=dataHash,proto3" json:"data_hash,omitempty"`
+	ValidatorsHash     []byte     `protobuf:"bytes,8,opt,name=validators_hash,json=validatorsHash,proto3" json:"validators_hash,omitempty"`
+	NextValidatorsHash []byte     `protobuf:"bytes,9,opt,name=next_validators_hash,json=nextValidatorsHash,proto3" json:"next_validators_hash,omitempty"`
+	ConsensusHash      []byte     `protobuf:"bytes,10,opt,name=consensus_hash,json=consensusHash,proto3" json:"consensus_hash,omitempty"`
+	AppHash            []byte     `protobuf:"bytes,11,opt,name=app_hash,json=appHash,proto3" json:"app_hash,omitempty"`
+	LastResultsHash    []byte     `protobuf:"bytes,12,opt,name=last_results_hash,json=lastResultsHash,proto3" json:"last_results_hash,omitempty"`
+	EvidenceHash       []byte     `protobuf:"bytes,13,opt,name=evidence_hash,json=evidenceHash,proto3" json:"evidence_hash,omitempty"`
+	ProposerAddress    []byte     `protobuf:"bytes,14,opt,name=proposer_address,json=proposerAddress,proto3" json:"proposer_address,omitempty"`
 	Hash               []byte     `protobuf:"bytes,15,opt,name=hash,proto3" json:"hash,omitempty"`
 }
 
@@ -779,7 +768,7 @@ type PartSetHeader struct {
 	unknownFields protoimpl.UnknownFields
 
 	Total uint32 `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Hash  []byte `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"` // hash 256 32 bytes
+	Hash  []byte `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
 }
 
 func (x *PartSetHeader) Reset() {
@@ -1039,14 +1028,14 @@ type EventVote struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	EventVoteType    SignedMsgType `protobuf:"varint,1,opt,name=event_vote_type,json=type,proto3,enum=sf.cosmos.type.v1.SignedMsgType" json:"event_vote_type,omitempty"` // should be present in the enum at the top of this file
-	Height           uint64        `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`                                                                  // must be > 0
-	Round            int32         `protobuf:"varint,3,opt,name=round,proto3" json:"round,omitempty"`                                                                    // must be > 0
+	EventVoteType    SignedMsgType `protobuf:"varint,1,opt,name=event_vote_type,json=type,proto3,enum=sf.cosmos.type.v1.SignedMsgType" json:"event_vote_type,omitempty"`
+	Height           uint64        `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`
+	Round            int32         `protobuf:"varint,3,opt,name=round,proto3" json:"round,omitempty"`
 	BlockId          *BlockID      `protobuf:"bytes,4,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
 	Timestamp        *Timestamp    `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	ValidatorAddress []byte        `protobuf:"bytes,6,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"` // hash with a length of 20
+	ValidatorAddress []byte        `protobuf:"bytes,6,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
 	ValidatorIndex   int32         `protobuf:"varint,7,opt,name=validator_index,json=validatorIndex,proto3" json:"validator_index,omitempty"`
-	Signature        []byte        `protobuf:"bytes,8,opt,name=signature,proto3" json:"signature,omitempty"` // hash length should be >0 and <64
+	Signature        []byte        `protobuf:"bytes,8,opt,name=signature,proto3" json:"signature,omitempty"`
 }
 
 func (x *EventVote) Reset() {
@@ -1221,8 +1210,8 @@ type LightBlock struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SignedHeader *SignedHeader `protobuf:"bytes,1,opt,name=signed_header,json=signedHeader,proto3" json:"signed_header,omitempty"` // cannot be nil
-	ValidatorSet *ValidatorSet `protobuf:"bytes,2,opt,name=validator_set,json=validatorSet,proto3" json:"validator_set,omitempty"` // cannot be nil
+	SignedHeader *SignedHeader `protobuf:"bytes,1,opt,name=signed_header,json=signedHeader,proto3" json:"signed_header,omitempty"`
+	ValidatorSet *ValidatorSet `protobuf:"bytes,2,opt,name=validator_set,json=validatorSet,proto3" json:"validator_set,omitempty"`
 }
 
 func (x *LightBlock) Reset() {
@@ -1331,8 +1320,8 @@ type Commit struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Height     int64        `protobuf:"varint,1,opt,name=height,proto3" json:"height,omitempty"` // must be > 0
-	Round      int32        `protobuf:"varint,2,opt,name=round,proto3" json:"round,omitempty"`   // must be > 0
+	Height     int64        `protobuf:"varint,1,opt,name=height,proto3" json:"height,omitempty"`
+	Round      int32        `protobuf:"varint,2,opt,name=round,proto3" json:"round,omitempty"`
 	BlockId    *BlockID     `protobuf:"bytes,3,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
 	Signatures []*CommitSig `protobuf:"bytes,4,rep,name=signatures,proto3" json:"signatures,omitempty"`
 }
@@ -1402,10 +1391,10 @@ type CommitSig struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	BlockIdFlag      BlockIDFlag `protobuf:"varint,1,opt,name=block_id_flag,json=blockIdFlag,proto3,enum=sf.cosmos.type.v1.BlockIDFlag" json:"block_id_flag,omitempty"` // must match those in the enum above
-	ValidatorAddress []byte      `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`                        // hash 256 20 bytes - this is the first 20 characters of a 32-byte key - SHA256(pubkey)[:20]
+	BlockIdFlag      BlockIDFlag `protobuf:"varint,1,opt,name=block_id_flag,json=blockIdFlag,proto3,enum=sf.cosmos.type.v1.BlockIDFlag" json:"block_id_flag,omitempty"`
+	ValidatorAddress []byte      `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
 	Timestamp        *Timestamp  `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	Signature        []byte      `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"` // length should be > 0 and < 64
+	Signature        []byte      `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"`
 }
 
 func (x *CommitSig) Reset() {
@@ -1473,8 +1462,8 @@ type ValidatorSet struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Validators       []*Validator `protobuf:"bytes,1,rep,name=validators,proto3" json:"validators,omitempty"` // cannot be empty or nil
-	Proposer         *Validator   `protobuf:"bytes,2,opt,name=proposer,proto3" json:"proposer,omitempty"`     // cannot be nil
+	Validators       []*Validator `protobuf:"bytes,1,rep,name=validators,proto3" json:"validators,omitempty"`
+	Proposer         *Validator   `protobuf:"bytes,2,opt,name=proposer,proto3" json:"proposer,omitempty"`
 	TotalVotingPower int64        `protobuf:"varint,3,opt,name=total_voting_power,json=totalVotingPower,proto3" json:"total_voting_power,omitempty"`
 }
 
@@ -1537,7 +1526,7 @@ type Validator struct {
 	unknownFields protoimpl.UnknownFields
 
 	Address          []byte     `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
-	PubKey           *PublicKey `protobuf:"bytes,2,opt,name=pub_key,json=pubKey,proto3" json:"pub_key,omitempty"` // must be > 0
+	PubKey           *PublicKey `protobuf:"bytes,2,opt,name=pub_key,json=pubKey,proto3" json:"pub_key,omitempty"`
 	VotingPower      int64      `protobuf:"varint,3,opt,name=voting_power,json=votingPower,proto3" json:"voting_power,omitempty"`
 	ProposerPriority int64      `protobuf:"varint,4,opt,name=proposer_priority,json=proposerPriority,proto3" json:"proposer_priority,omitempty"`
 }
@@ -1791,7 +1780,7 @@ type EventAttribute struct {
 
 	Key   string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
 	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
-	Index bool   `protobuf:"varint,3,opt,name=index,proto3" json:"index,omitempty"` // nondeterministic
+	Index bool   `protobuf:"varint,3,opt,name=index,proto3" json:"index,omitempty"`
 }
 
 func (x *EventAttribute) Reset() {
@@ -2049,8 +2038,8 @@ type BlockParams struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	MaxBytes int64 `protobuf:"varint,1,opt,name=max_bytes,json=maxBytes,proto3" json:"max_bytes,omitempty"` // Note: must be greater than 0
-	MaxGas   int64 `protobuf:"varint,2,opt,name=max_gas,json=maxGas,proto3" json:"max_gas,omitempty"`       // Note: must be greater or equal to -1
+	MaxBytes int64 `protobuf:"varint,1,opt,name=max_bytes,json=maxBytes,proto3" json:"max_bytes,omitempty"`
+	MaxGas   int64 `protobuf:"varint,2,opt,name=max_gas,json=maxGas,proto3" json:"max_gas,omitempty"`
 }
 
 func (x *BlockParams) Reset() {
@@ -2106,7 +2095,7 @@ type EvidenceParams struct {
 
 	MaxAgeNumBlocks int64     `protobuf:"varint,1,opt,name=max_age_num_blocks,json=maxAgeNumBlocks,proto3" json:"max_age_num_blocks,omitempty"`
 	MaxAgeDuration  *Duration `protobuf:"bytes,2,opt,name=max_age_duration,json=maxAgeDuration,proto3" json:"max_age_duration,omitempty"`
-	MaxBytes        int64     `protobuf:"varint,3,opt,name=max_bytes,json=maxBytes,proto3" json:"max_bytes,omitempty"` // Default is 1048576 or 1MB
+	MaxBytes        int64     `protobuf:"varint,3,opt,name=max_bytes,json=maxBytes,proto3" json:"max_bytes,omitempty"`
 }
 
 func (x *EvidenceParams) Reset() {
@@ -2395,15 +2384,9 @@ type Tx struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// body is the processable content of the transaction
-	Body *TxBody `protobuf:"bytes,1,opt,name=body,proto3" json:"body,omitempty"`
-	// auth_info is the authorization related content of the transaction,
-	// specifically signers, signer modes and fee
-	AuthInfo *AuthInfo `protobuf:"bytes,2,opt,name=auth_info,json=authInfo,proto3" json:"auth_info,omitempty"`
-	// signatures is a list of signatures that matches the length and order of
-	// AuthInfo's signer_infos to allow connecting signature meta information like
-	// public key and signing mode by position.
-	Signatures [][]byte `protobuf:"bytes,3,rep,name=signatures,proto3" json:"signatures,omitempty"`
+	Body       *TxBody   `protobuf:"bytes,1,opt,name=body,proto3" json:"body,omitempty"`
+	AuthInfo   *AuthInfo `protobuf:"bytes,2,opt,name=auth_info,json=authInfo,proto3" json:"auth_info,omitempty"`
+	Signatures [][]byte  `protobuf:"bytes,3,rep,name=signatures,proto3" json:"signatures,omitempty"`
 }
 
 func (x *Tx) Reset() {
@@ -2464,28 +2447,10 @@ type TxBody struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// messages is a list of messages to be executed. The required signers of
-	// those messages define the number and order of elements in AuthInfo's
-	// signer_infos and Tx's signatures. Each required signer address is added to
-	// the list only the first time it occurs.
-	// By convention, the first required signer (usually from the first message)
-	// is referred to as the primary signer and pays the fee for the whole
-	// transaction.
-	Messages []*anypb.Any `protobuf:"bytes,1,rep,name=messages,proto3" json:"messages,omitempty"`
-	// memo is any arbitrary note/comment to be added to the transaction.
-	// WARNING: in clients, any publicly exposed text should not be called memo,
-	// but should be called `note` instead (see https://github.com/cosmos/cosmos-sdk/issues/9122).
-	Memo string `protobuf:"bytes,2,opt,name=memo,proto3" json:"memo,omitempty"`
-	// timeout is the block height after which this transaction will not
-	// be processed by the chain
-	TimeoutHeight uint64 `protobuf:"varint,3,opt,name=timeout_height,json=timeoutHeight,proto3" json:"timeout_height,omitempty"`
-	// extension_options are arbitrary options that can be added by chains
-	// when the default options are not sufficient. If any of these are present
-	// and can't be handled, the transaction will be rejected
-	ExtensionOptions []*anypb.Any `protobuf:"bytes,1023,rep,name=extension_options,json=extensionOptions,proto3" json:"extension_options,omitempty"`
-	// extension_options are arbitrary options that can be added by chains
-	// when the default options are not sufficient. If any of these are present
-	// and can't be handled, they will be ignored
+	Messages                    []*anypb.Any `protobuf:"bytes,1,rep,name=messages,proto3" json:"messages,omitempty"`
+	Memo                        string       `protobuf:"bytes,2,opt,name=memo,proto3" json:"memo,omitempty"`
+	TimeoutHeight               uint64       `protobuf:"varint,3,opt,name=timeout_height,json=timeoutHeight,proto3" json:"timeout_height,omitempty"`
+	ExtensionOptions            []*anypb.Any `protobuf:"bytes,1023,rep,name=extension_options,json=extensionOptions,proto3" json:"extension_options,omitempty"`
 	NonCriticalExtensionOptions []*anypb.Any `protobuf:"bytes,2047,rep,name=non_critical_extension_options,json=nonCriticalExtensionOptions,proto3" json:"non_critical_extension_options,omitempty"`
 }
 
@@ -2561,20 +2526,9 @@ type AuthInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// signer_infos defines the signing modes for the required signers. The number
-	// and order of elements must match the required signers from TxBody's
-	// messages. The first element is the primary signer and the one which pays
-	// the fee.
 	SignerInfos []*SignerInfo `protobuf:"bytes,1,rep,name=signer_infos,json=signerInfos,proto3" json:"signer_infos,omitempty"`
-	// Fee is the fee and gas limit for the transaction. The first signer is the
-	// primary signer and the one which pays the fee. The fee can be calculated
-	// based on the cost of evaluating the body and doing signature verification
-	// of the signers. This can be estimated via simulation.
-	Fee *Fee `protobuf:"bytes,2,opt,name=fee,proto3" json:"fee,omitempty"`
-	// Tip is the optional tip used for meta-transactions.
-	//
-	// Since: cosmos-sdk 0.46
-	Tip *Tip `protobuf:"bytes,3,opt,name=tip,proto3" json:"tip,omitempty"`
+	Fee         *Fee          `protobuf:"bytes,2,opt,name=fee,proto3" json:"fee,omitempty"`
+	Tip         *Tip          `protobuf:"bytes,3,opt,name=tip,proto3" json:"tip,omitempty"`
 }
 
 func (x *AuthInfo) Reset() {
@@ -2635,17 +2589,9 @@ type SignerInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// public_key is the public key of the signer. It is optional for accounts
-	// that already exist in state. If unset, the verifier can use the required \
-	// signer address for this position and lookup the public key.
 	PublicKey *anypb.Any `protobuf:"bytes,1,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
-	// mode_info describes the signing mode of the signer and is a nested
-	// structure to support nested multisig pubkey's
-	ModeInfo *ModeInfo `protobuf:"bytes,2,opt,name=mode_info,json=modeInfo,proto3" json:"mode_info,omitempty"`
-	// sequence is the sequence of the account, which describes the
-	// number of committed transactions signed by a given address. It is used to
-	// prevent replay attacks.
-	Sequence uint64 `protobuf:"varint,3,opt,name=sequence,proto3" json:"sequence,omitempty"`
+	ModeInfo  *ModeInfo  `protobuf:"bytes,2,opt,name=mode_info,json=modeInfo,proto3" json:"mode_info,omitempty"`
+	Sequence  uint64     `protobuf:"varint,3,opt,name=sequence,proto3" json:"sequence,omitempty"`
 }
 
 func (x *SignerInfo) Reset() {
@@ -2706,9 +2652,6 @@ type ModeInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// sum is the oneof that specifies whether this represents a single or nested
-	// multisig signer
-	//
 	// Types that are assignable to Sum:
 	//	*ModeInfo_Single
 	//	*ModeInfo_Multi
@@ -2773,12 +2716,10 @@ type isModeInfo_Sum interface {
 }
 
 type ModeInfo_Single struct {
-	// single represents a single signer
 	Single *ModeInfoSingle `protobuf:"bytes,1,opt,name=single,proto3,oneof"`
 }
 
 type ModeInfo_Multi struct {
-	// multi represents a nested multisig signer
 	Multi *ModeInfoMulti `protobuf:"bytes,2,opt,name=multi,proto3,oneof"`
 }
 
@@ -2786,15 +2727,11 @@ func (*ModeInfo_Single) isModeInfo_Sum() {}
 
 func (*ModeInfo_Multi) isModeInfo_Sum() {}
 
-// Single is the mode info for a single signer. It is structured as a message
-// to allow for additional fields such as locale for SIGN_MODE_TEXTUAL in the
-// future
 type ModeInfoSingle struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// mode is the signing mode of the single signer
 	Mode SignMode `protobuf:"varint,1,opt,name=mode,proto3,enum=sf.cosmos.type.v1.SignMode" json:"mode,omitempty"`
 }
 
@@ -2837,17 +2774,13 @@ func (x *ModeInfoSingle) GetMode() SignMode {
 	return SignMode_SIGN_MODE_UNSPECIFIED
 }
 
-// Multi is the mode info for a multisig public key
 type ModeInfoMulti struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// bitarray specifies which keys within the multisig are signing
-	Bitarray *CompactBitArray `protobuf:"bytes,1,opt,name=bitarray,proto3" json:"bitarray,omitempty"`
-	// mode_infos is the corresponding modes of the signers of the multisig
-	// which could include nested multisig public keys
-	ModeInfos []*ModeInfo `protobuf:"bytes,2,rep,name=mode_infos,json=modeInfos,proto3" json:"mode_infos,omitempty"`
+	Bitarray  *CompactBitArray `protobuf:"bytes,1,opt,name=bitarray,proto3" json:"bitarray,omitempty"`
+	ModeInfos []*ModeInfo      `protobuf:"bytes,2,rep,name=mode_infos,json=modeInfos,proto3" json:"mode_infos,omitempty"`
 }
 
 func (x *ModeInfoMulti) Reset() {
@@ -2956,19 +2889,10 @@ type Fee struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// amount is the amount of coins to be paid as a fee
-	Amount []*Coin `protobuf:"bytes,1,rep,name=amount,proto3" json:"amount,omitempty"`
-	// gas_limit is the maximum gas that can be used in transaction processing
-	// before an out of gas error occurs
-	GasLimit uint64 `protobuf:"varint,2,opt,name=gas_limit,json=gasLimit,proto3" json:"gas_limit,omitempty"`
-	// if unset, the first signer is responsible for paying the fees. If set, the specified account must pay the fees.
-	// the payer must be a tx signer (and thus have signed this field in AuthInfo).
-	// setting this field does *not* change the ordering of required signers for the transaction.
-	Payer string `protobuf:"bytes,3,opt,name=payer,proto3" json:"payer,omitempty"`
-	// if set, the fee payer (either the first signer or the value of the payer field) requests that a fee grant be used
-	// to pay fees instead of the fee payer's own balance. If an appropriate fee grant does not exist or the chain does
-	// not support fee grants, this will fail
-	Granter string `protobuf:"bytes,4,opt,name=granter,proto3" json:"granter,omitempty"`
+	Amount   []*Coin `protobuf:"bytes,1,rep,name=amount,proto3" json:"amount,omitempty"`
+	GasLimit uint64  `protobuf:"varint,2,opt,name=gas_limit,json=gasLimit,proto3" json:"gas_limit,omitempty"`
+	Payer    string  `protobuf:"bytes,3,opt,name=payer,proto3" json:"payer,omitempty"`
+	Granter  string  `protobuf:"bytes,4,opt,name=granter,proto3" json:"granter,omitempty"`
 }
 
 func (x *Fee) Reset() {
@@ -3091,10 +3015,8 @@ type Tip struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// amount is the amount of the tip
 	Amount []*Coin `protobuf:"bytes,1,rep,name=amount,proto3" json:"amount,omitempty"`
-	// tipper is the address of the account paying for the tip
-	Tipper string `protobuf:"bytes,2,opt,name=tipper,proto3" json:"tipper,omitempty"`
+	Tipper string  `protobuf:"bytes,2,opt,name=tipper,proto3" json:"tipper,omitempty"`
 }
 
 func (x *Tip) Reset() {
