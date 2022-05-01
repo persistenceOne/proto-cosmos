@@ -5,6 +5,7 @@ package sf.cosmos.type.v1;
 option go_package = "github.com/figment-networks/proto-cosmos/pb/sf/cosmos/type/v1;pbcosmos";
 
 import "google/protobuf/descriptor.proto";
+import "google/protobuf/any.proto";
 import "gogoproto/gogo.proto";
 import "cosmos_proto/cosmos.proto";
 
@@ -262,11 +263,11 @@ message Tx {
 }
 
 message TxBody {
-  repeated Any messages = 1;
+  repeated google.protobuf.Any messages = 1;
   string memo = 2;
   uint64 timeout_height = 3;
-  repeated Any extension_options = 1023;
-  repeated Any non_critical_extension_options = 2047;
+  repeated google.protobuf.Any extension_options = 1023;
+  repeated google.protobuf.Any non_critical_extension_options = 2047;
 }
 
 message Any {
@@ -281,7 +282,7 @@ message AuthInfo {
 }
 
 message SignerInfo {
-  Any public_key = 1;
+  google.protobuf.Any public_key = 1;
   ModeInfo mode_info = 2;
   uint64 sequence = 3;
 }
