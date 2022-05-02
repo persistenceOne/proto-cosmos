@@ -4,5 +4,6 @@ ColumnLimit: 130
 IndentWidth: 2
 SpacesBeforeTrailingComments: 1
 PenaltyBreakComment: 10
-AlignConsecutiveAssignments: true
-AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignTrailingComments: false
