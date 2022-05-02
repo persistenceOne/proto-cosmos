@@ -346,3 +346,7 @@ message ResponseDeliverTx {
   repeated Event events = 7 [(gogoproto.nullable) = false, (gogoproto.jsontag) = "events,omitempty"];
   string codespace = 8;
 }
+
+message ValidatorSetUpdates {
+  repeated Validator validator_updates = 1;
+}
