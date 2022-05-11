@@ -7,3 +7,7 @@ option go_package = "github.com/figment-networks/proto-cosmos/pb/sf/cosmos/trans
 message EventTypeFilter {
   repeated string event_types = 1;
 }
+
+message MessageTypeFilter {
+  repeated string message_types = 1;
+}
