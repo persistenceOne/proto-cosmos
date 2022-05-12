@@ -40,7 +40,7 @@ message TransactionData {
 }
 
 message MessageData {
-  Any message = 1;
+  google.protobuf.Any message = 1;
   HeaderOnlyBlock block = 2;
 }
 
