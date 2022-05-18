@@ -11,3 +11,7 @@ message EventTypeFilter {
 message MessageTypeFilter {
   repeated string message_types = 1;
 }
+
+message EventOriginFilter {
+  repeated string event_origin = 1;
+}
