@@ -10,7 +10,6 @@ message CombinedFilter {
   repeated MessageTypeFilter message_type_filters = 3;
 }
 
-
 message EventTypeFilter {
   repeated string event_types = 1;
 }
