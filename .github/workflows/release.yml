@@ -25,11 +25,13 @@ jobs:
       - run: npm install -g typescript
 
       - name: Setup protoc
-        uses: arduino/setup-protoc@v1
+      - uses: abelfodil/protoc-action@v1
+        with:
+          protoc-version: '21.6'
 
       - name: Add Protobuf files
         run: |
-          go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
+          go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1
           go mod download
           make generate
 

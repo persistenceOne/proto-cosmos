@@ -16,7 +16,7 @@ jobs:
       - uses: abelfodil/protoc-action@v1
         with:
           protoc-version: '21.6'
-      - run: go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+      - run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.1
       - run: go mod download
       - run: make
       - run: git status
