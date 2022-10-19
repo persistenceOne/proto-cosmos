@@ -56,7 +56,7 @@ jobs:
       - name: Graph-ts
         working-directory: repos
         run: |
-          git clone --branch cosmos --single-branch https://github.com/figment-networks/graph-ts
+          git clone --single-branch https://github.com/figment-networks/graph-ts
           cp -r ./graph-proto-as-schema/output ./graph-ts/chain
 
       - name: Create Release
