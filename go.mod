@@ -1,1 +1,1 @@
-module github.com/figment-networks/proto-cosmos
+module github.com/graphprotocol/proto-cosmos
