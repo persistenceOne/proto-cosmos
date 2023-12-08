@@ -210,8 +210,8 @@ message Event {
 }
 
 message EventAttribute {
-  bytes key = 1;
-  bytes value = 2;
+  string key = 1;
+  string value = 2;
   bool index = 3;
 }
 
