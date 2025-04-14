@@ -9,7 +9,6 @@ import "google/protobuf/any.proto";
 import "gogoproto/gogo.proto";
 import "cosmos_proto/cosmos.proto";
 import "firehose/annotations.proto";
-import "google/protobuf/timestamp.proto";
 
 message Block {
   Header header = 1 [(firehose.required) = true, (gogoproto.nullable) = false];
@@ -119,7 +118,7 @@ message EventVote {
   uint64 height = 2;
   int32 round = 3;
   BlockID block_id = 4 [(gogoproto.nullable) = false, (gogoproto.customname) = "BlockID"];
-  google.protobuf.Timestamp timestamp = 5 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+  Timestamp timestamp = 5 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   bytes validator_address = 6;
   int32 validator_index = 7;
   bytes signature = 8;
@@ -165,7 +164,7 @@ message Commit {
 message CommitSig {
   BlockIDFlag block_id_flag = 1;
   bytes validator_address = 2;
-  google.protobuf.Timestamp timestamp = 3 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+  Timestamp timestamp = 3 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   bytes signature = 4;
 }
 
@@ -379,7 +378,7 @@ message ValidatorSetUpdates {
 message ExtendedCommitSig {
   BlockIDFlag block_id_flag = 1;
   bytes validator_address = 2;
-  google.protobuf.Timestamp timestamp = 3 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+  Timestamp timestamp = 3 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
   bytes signature = 4;
   bytes extension = 5;
   bytes extension_signature = 6;

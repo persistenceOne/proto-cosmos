@@ -14,7 +14,6 @@ import (
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	_ "google.golang.org/protobuf/types/descriptorpb"
 	anypb "google.golang.org/protobuf/types/known/anypb"
-	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -1137,7 +1136,7 @@ type EventVote struct {
 	Height             uint64                 `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"`
 	Round              int32                  `protobuf:"varint,3,opt,name=round,proto3" json:"round,omitempty"`
 	BlockId            *BlockID               `protobuf:"bytes,4,opt,name=block_id,json=blockId,proto3" json:"block_id,omitempty"`
-	Timestamp          *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Timestamp          *Timestamp             `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	ValidatorAddress   []byte                 `protobuf:"bytes,6,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
 	ValidatorIndex     int32                  `protobuf:"varint,7,opt,name=validator_index,json=validatorIndex,proto3" json:"validator_index,omitempty"`
 	Signature          []byte                 `protobuf:"bytes,8,opt,name=signature,proto3" json:"signature,omitempty"`
@@ -1205,7 +1204,7 @@ func (x *EventVote) GetBlockId() *BlockID {
 	return nil
 }
 
-func (x *EventVote) GetTimestamp() *timestamppb.Timestamp {
+func (x *EventVote) GetTimestamp() *Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -1499,7 +1498,7 @@ type CommitSig struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	BlockIdFlag      BlockIDFlag            `protobuf:"varint,1,opt,name=block_id_flag,json=blockIdFlag,proto3,enum=sf.cosmos.type.v1.BlockIDFlag" json:"block_id_flag,omitempty"`
 	ValidatorAddress []byte                 `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
-	Timestamp        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Timestamp        *Timestamp             `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	Signature        []byte                 `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
@@ -1549,7 +1548,7 @@ func (x *CommitSig) GetValidatorAddress() []byte {
 	return nil
 }
 
-func (x *CommitSig) GetTimestamp() *timestamppb.Timestamp {
+func (x *CommitSig) GetTimestamp() *Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -3371,7 +3370,7 @@ type ExtendedCommitSig struct {
 	state              protoimpl.MessageState `protogen:"open.v1"`
 	BlockIdFlag        BlockIDFlag            `protobuf:"varint,1,opt,name=block_id_flag,json=blockIdFlag,proto3,enum=sf.cosmos.type.v1.BlockIDFlag" json:"block_id_flag,omitempty"`
 	ValidatorAddress   []byte                 `protobuf:"bytes,2,opt,name=validator_address,json=validatorAddress,proto3" json:"validator_address,omitempty"`
-	Timestamp          *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Timestamp          *Timestamp             `protobuf:"bytes,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	Signature          []byte                 `protobuf:"bytes,4,opt,name=signature,proto3" json:"signature,omitempty"`
 	Extension          []byte                 `protobuf:"bytes,5,opt,name=extension,proto3" json:"extension,omitempty"`
 	ExtensionSignature []byte                 `protobuf:"bytes,6,opt,name=extension_signature,json=extensionSignature,proto3" json:"extension_signature,omitempty"`
@@ -3423,7 +3422,7 @@ func (x *ExtendedCommitSig) GetValidatorAddress() []byte {
 	return nil
 }
 
-func (x *ExtendedCommitSig) GetTimestamp() *timestamppb.Timestamp {
+func (x *ExtendedCommitSig) GetTimestamp() *Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -3455,7 +3454,7 @@ var File_sf_cosmos_type_v1_type_proto protoreflect.FileDescriptor
 
 const file_sf_cosmos_type_v1_type_proto_rawDesc = "" +
 	"\n" +
-	"\x1csf/cosmos/type/v1/type.proto\x12\x11sf.cosmos.type.v1\x1a google/protobuf/descriptor.proto\x1a\x19google/protobuf/any.proto\x1a\x14gogoproto/gogo.proto\x1a\x19cosmos_proto/cosmos.proto\x1a\x1afirehose/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb3\x03\n" +
+	"\x1csf/cosmos/type/v1/type.proto\x12\x11sf.cosmos.type.v1\x1a google/protobuf/descriptor.proto\x1a\x19google/protobuf/any.proto\x1a\x14gogoproto/gogo.proto\x1a\x19cosmos_proto/cosmos.proto\x1a\x1afirehose/annotations.proto\"\xb3\x03\n" +
 	"\x05Block\x12;\n" +
 	"\x06header\x18\x01 \x01(\v2\x19.sf.cosmos.type.v1.HeaderB\b\xc8\xde\x1f\x00\xc8\xcc%\x01R\x06header\x12A\n" +
 	"\bevidence\x18\x02 \x01(\v2\x1f.sf.cosmos.type.v1.EvidenceListB\x04\xc8\xde\x1f\x00R\bevidence\x12:\n" +
@@ -3524,13 +3523,13 @@ const file_sf_cosmos_type_v1_type_proto_rawDesc = "" +
 	"\x06vote_b\x18\x02 \x01(\v2\x1c.sf.cosmos.type.v1.EventVoteR\x05voteB\x12,\n" +
 	"\x12total_voting_power\x18\x03 \x01(\x03R\x10totalVotingPower\x12'\n" +
 	"\x0fvalidator_power\x18\x04 \x01(\x03R\x0evalidatorPower\x12D\n" +
-	"\ttimestamp\x18\x05 \x01(\v2\x1c.sf.cosmos.type.v1.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\"\xc9\x03\n" +
+	"\ttimestamp\x18\x05 \x01(\v2\x1c.sf.cosmos.type.v1.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\"\xcb\x03\n" +
 	"\tEventVote\x12?\n" +
 	"\x0fevent_vote_type\x18\x01 \x01(\x0e2 .sf.cosmos.type.v1.SignedMsgTypeR\x04type\x12\x16\n" +
 	"\x06height\x18\x02 \x01(\x04R\x06height\x12\x14\n" +
 	"\x05round\x18\x03 \x01(\x05R\x05round\x12F\n" +
-	"\bblock_id\x18\x04 \x01(\v2\x1a.sf.cosmos.type.v1.BlockIDB\x0f\xc8\xde\x1f\x00\xe2\xde\x1f\aBlockIDR\ablockId\x12B\n" +
-	"\ttimestamp\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\x12+\n" +
+	"\bblock_id\x18\x04 \x01(\v2\x1a.sf.cosmos.type.v1.BlockIDB\x0f\xc8\xde\x1f\x00\xe2\xde\x1f\aBlockIDR\ablockId\x12D\n" +
+	"\ttimestamp\x18\x05 \x01(\v2\x1c.sf.cosmos.type.v1.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\x12+\n" +
 	"\x11validator_address\x18\x06 \x01(\fR\x10validatorAddress\x12'\n" +
 	"\x0fvalidator_index\x18\a \x01(\x05R\x0evalidatorIndex\x12\x1c\n" +
 	"\tsignature\x18\b \x01(\fR\tsignature\x12\x1c\n" +
@@ -3556,11 +3555,11 @@ const file_sf_cosmos_type_v1_type_proto_rawDesc = "" +
 	"\bblock_id\x18\x03 \x01(\v2\x1a.sf.cosmos.type.v1.BlockIDB\x0f\xc8\xde\x1f\x00\xe2\xde\x1f\aBlockIDR\ablockId\x12B\n" +
 	"\n" +
 	"signatures\x18\x04 \x03(\v2\x1c.sf.cosmos.type.v1.CommitSigB\x04\xc8\xde\x1f\x00R\n" +
-	"signatures\"\xde\x01\n" +
+	"signatures\"\xe0\x01\n" +
 	"\tCommitSig\x12B\n" +
 	"\rblock_id_flag\x18\x01 \x01(\x0e2\x1e.sf.cosmos.type.v1.BlockIDFlagR\vblockIdFlag\x12+\n" +
-	"\x11validator_address\x18\x02 \x01(\fR\x10validatorAddress\x12B\n" +
-	"\ttimestamp\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\x12\x1c\n" +
+	"\x11validator_address\x18\x02 \x01(\fR\x10validatorAddress\x12D\n" +
+	"\ttimestamp\x18\x03 \x01(\v2\x1c.sf.cosmos.type.v1.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\x12\x1c\n" +
 	"\tsignature\x18\x04 \x01(\fR\tsignature\"\xb4\x01\n" +
 	"\fValidatorSet\x12<\n" +
 	"\n" +
@@ -3688,11 +3687,11 @@ const file_sf_cosmos_type_v1_type_proto_rawDesc = "" +
 	"\x06events\x18\a \x03(\v2\x18.sf.cosmos.type.v1.EventB\x18\xc8\xde\x1f\x00\xea\xde\x1f\x10events,omitemptyR\x06events\x12\x1c\n" +
 	"\tcodespace\x18\b \x01(\tR\tcodespace\"`\n" +
 	"\x13ValidatorSetUpdates\x12I\n" +
-	"\x11validator_updates\x18\x01 \x03(\v2\x1c.sf.cosmos.type.v1.ValidatorR\x10validatorUpdates\"\xb5\x02\n" +
+	"\x11validator_updates\x18\x01 \x03(\v2\x1c.sf.cosmos.type.v1.ValidatorR\x10validatorUpdates\"\xb7\x02\n" +
 	"\x11ExtendedCommitSig\x12B\n" +
 	"\rblock_id_flag\x18\x01 \x01(\x0e2\x1e.sf.cosmos.type.v1.BlockIDFlagR\vblockIdFlag\x12+\n" +
-	"\x11validator_address\x18\x02 \x01(\fR\x10validatorAddress\x12B\n" +
-	"\ttimestamp\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\x12\x1c\n" +
+	"\x11validator_address\x18\x02 \x01(\fR\x10validatorAddress\x12D\n" +
+	"\ttimestamp\x18\x03 \x01(\v2\x1c.sf.cosmos.type.v1.TimestampB\b\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\ttimestamp\x12\x1c\n" +
 	"\tsignature\x18\x04 \x01(\fR\tsignature\x12\x1c\n" +
 	"\textension\x18\x05 \x01(\fR\textension\x12/\n" +
 	"\x13extension_signature\x18\x06 \x01(\fR\x12extensionSignature*\xd7\x01\n" +
@@ -3782,7 +3781,6 @@ var file_sf_cosmos_type_v1_type_proto_goTypes = []any{
 	(*ValidatorSetUpdates)(nil),       // 52: sf.cosmos.type.v1.ValidatorSetUpdates
 	(*ExtendedCommitSig)(nil),         // 53: sf.cosmos.type.v1.ExtendedCommitSig
 	(*anypb.Any)(nil),                 // 54: google.protobuf.Any
-	(*timestamppb.Timestamp)(nil),     // 55: google.protobuf.Timestamp
 }
 var file_sf_cosmos_type_v1_type_proto_depIdxs = []int32{
 	9,  // 0: sf.cosmos.type.v1.Block.header:type_name -> sf.cosmos.type.v1.Header
@@ -3812,7 +3810,7 @@ var file_sf_cosmos_type_v1_type_proto_depIdxs = []int32{
 	11, // 24: sf.cosmos.type.v1.DuplicateVoteEvidence.timestamp:type_name -> sf.cosmos.type.v1.Timestamp
 	0,  // 25: sf.cosmos.type.v1.EventVote.event_vote_type:type_name -> sf.cosmos.type.v1.SignedMsgType
 	12, // 26: sf.cosmos.type.v1.EventVote.block_id:type_name -> sf.cosmos.type.v1.BlockID
-	55, // 27: sf.cosmos.type.v1.EventVote.timestamp:type_name -> google.protobuf.Timestamp
+	11, // 27: sf.cosmos.type.v1.EventVote.timestamp:type_name -> sf.cosmos.type.v1.Timestamp
 	19, // 28: sf.cosmos.type.v1.LightClientAttackEvidence.conflicting_block:type_name -> sf.cosmos.type.v1.LightBlock
 	24, // 29: sf.cosmos.type.v1.LightClientAttackEvidence.byzantine_validators:type_name -> sf.cosmos.type.v1.Validator
 	11, // 30: sf.cosmos.type.v1.LightClientAttackEvidence.timestamp:type_name -> sf.cosmos.type.v1.Timestamp
@@ -3823,7 +3821,7 @@ var file_sf_cosmos_type_v1_type_proto_depIdxs = []int32{
 	12, // 35: sf.cosmos.type.v1.Commit.block_id:type_name -> sf.cosmos.type.v1.BlockID
 	22, // 36: sf.cosmos.type.v1.Commit.signatures:type_name -> sf.cosmos.type.v1.CommitSig
 	1,  // 37: sf.cosmos.type.v1.CommitSig.block_id_flag:type_name -> sf.cosmos.type.v1.BlockIDFlag
-	55, // 38: sf.cosmos.type.v1.CommitSig.timestamp:type_name -> google.protobuf.Timestamp
+	11, // 38: sf.cosmos.type.v1.CommitSig.timestamp:type_name -> sf.cosmos.type.v1.Timestamp
 	24, // 39: sf.cosmos.type.v1.ValidatorSet.validators:type_name -> sf.cosmos.type.v1.Validator
 	24, // 40: sf.cosmos.type.v1.ValidatorSet.proposer:type_name -> sf.cosmos.type.v1.Validator
 	25, // 41: sf.cosmos.type.v1.Validator.pub_key:type_name -> sf.cosmos.type.v1.PublicKey
@@ -3863,7 +3861,7 @@ var file_sf_cosmos_type_v1_type_proto_depIdxs = []int32{
 	29, // 75: sf.cosmos.type.v1.ResponseDeliverTx.events:type_name -> sf.cosmos.type.v1.Event
 	24, // 76: sf.cosmos.type.v1.ValidatorSetUpdates.validator_updates:type_name -> sf.cosmos.type.v1.Validator
 	1,  // 77: sf.cosmos.type.v1.ExtendedCommitSig.block_id_flag:type_name -> sf.cosmos.type.v1.BlockIDFlag
-	55, // 78: sf.cosmos.type.v1.ExtendedCommitSig.timestamp:type_name -> google.protobuf.Timestamp
+	11, // 78: sf.cosmos.type.v1.ExtendedCommitSig.timestamp:type_name -> sf.cosmos.type.v1.Timestamp
 	79, // [79:79] is the sub-list for method output_type
 	79, // [79:79] is the sub-list for method input_type
 	79, // [79:79] is the sub-list for extension type_name
